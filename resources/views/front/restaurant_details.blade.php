@@ -15,9 +15,9 @@
 
 
 <section class="booking col-text">
-    <div class="container py-md-5">
+    <div class="container">
         <div class="row">
-            <div class="col-md-12 py-md-3 align-items-baseline">
+            <div class="col-md-12 align-items-baseline">
                 <div class="py-md-4 text-center">
                     <h1 class="fs-1">{{$data->name}}</h1>
                     <p class="fw-semibold py-md-2 sub">{{$data->address}}</p>

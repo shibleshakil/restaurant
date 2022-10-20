@@ -1,14 +1,14 @@
 <div class="row">
-    <div class="col-md-12 py-md-3 align-items-baseline">
-        <div class="py-md-4 text-center">
+    <div class="col-md-12 align-items-baseline">
+        <div class="text-center">
             <h1 class="fs-1">{{$bookingSetting->title}}</h1>
             <p class="fw-semibold py-md-2 sub">{{$bookingSetting->short_note}}</p>
         </div>
 
         <div class="row w-100">
-            <div class="col-md-3 py-md-3 ms-md-auto">
+            <div class="col-md-3 ms-md-auto">
                 <label for="book_restaurant" class="form-label fw-semibold px-md-3">Select Restaurant</label>
-                <select class="form-select btn-rounded w-100" id="book_restaurant" name="restaurant">
+                <select class="form-select w-100" id="book_restaurant" name="restaurant">
                     @if (sizeof ($restaurants) > 0)
                     <option value="">Select</option>
                     @foreach ($restaurants as $type)
@@ -19,18 +19,18 @@
                 </select>
             </div>
 
-            <div class="col-md-3 py-md-3 me-md-auto">
+            <div class="col-md-3 me-md-auto">
                 <label for="date" class="form-label fw-semibold px-md-3">Date</label>
-                <input type="date" class="btn-rounded w-100" id="birthday" name="date" @if($url=='restaurantDetail' )
+                <input type="date" class="form-control w-100" id="birthday" name="date" @if($url=='restaurantDetail' )
                     required @else readonly @endif>
             </div>
 
         </div>
 
-        <div class="row w-100 py-3">
+        <div class="row w-100">
             <div class="col-md-3 py-md-3 ms-md-auto">
                 <label for="no_of_guest" class="form-label fw-semibold px-md-3">No. of Guest</label>
-                <select class="form-select btn-rounded w-100" id="no_of_guest" name="no_of_guest" disabled>
+                <select class="form-select w-100" id="no_of_guest" name="no_of_guest" disabled>
                     <option selected>Choose</option>
                     <option value="1">2</option>
                     <option value="2">3</option>
@@ -43,7 +43,7 @@
 
             <div class="col-md-3 py-md-3 me-md-auto">
                 <label for="preferred_time" class="form-label fw-semibold px-md-3">Preferred time</label>
-                <select class="form-select btn-rounded w-100" id="preferred_time" name="preferred_time" disabled>
+                <select class="form-select w-100" id="preferred_time" name="preferred_time" disabled>
                     <option selected>Choose</option>
                     <option value="1">2</option>
                     <option value="2">3</option>
@@ -57,8 +57,8 @@
         </div>
 
         <div class="row w-100 align-content-center d-flex">
-            <div class="col-md-3 py-md-3 mx-auto">
-                <button class="btn-rounded w-100" disabled>Check</button>
+            <div class="col-md-6 py-md-3 mx-auto">
+                <button class="btn-rounded w-100" disabled>Check Availability</button>
             </div>
 
         </div>
