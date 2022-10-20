@@ -39,11 +39,13 @@ class WebController extends Controller
     public function contact(){
         $contact = Contactpage::find(1);
         $areas = Area::where('is_active', 1)->orderBy('title')->get();
-        return view('front.contact', compact('contact', 'areas'));
+        $restaurants = Restaurant::where('is_active', 1)->orderBy('name')->get();
+        return view('front.contact', compact('contact', 'areas', 'restaurants'));
     }
     public function about(){
         $about = Aboutpage::find(1);
-        return view('front.about', compact('about'));
+        $restaurants = Restaurant::where('is_active', 1)->orderBy('name')->get();
+        return view('front.about', compact('about', 'restaurants'));
     }
     public function booking(){
         $bookingSetting = Bookingpage::findorFail(1);
