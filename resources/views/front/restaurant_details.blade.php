@@ -29,9 +29,9 @@
 </section>
 
 
-<section class="container py-md-5">
-    <div class="row py-md-5">
-        <div class="col-md-5 my-5 mx-auto menu-con rounded">
+<section class="container">
+    <div class="row">
+        <div class="col-md-5 my-3 mx-auto menu-con rounded">
             <div class="py-md-3">
                 {!! $data->map !!}
             </div>
@@ -45,7 +45,7 @@
             </div>
         </div>
 
-        <div class="col-md-5 my-5 mx-auto menu-con">
+        <div class="col-md-5 my-3 mx-auto menu-con">
             <div class="py-md-3">
                 <img src="{{asset ('img/lunch_menu.jpg')}}" class="d-block w-100 img-fluid" alt="...">
             </div>
@@ -54,7 +54,7 @@
                 <p>
                     @if (sizeof ($lunchItems) > 0 )
                     @foreach ($lunchItems as $litem)
-                    {{$litem->name}} for £{{$litem->price}} <br>
+                    {{$litem->item}} for £{{$litem->price}} <br>
                     @endforeach
                     @endif
                     Monday to Sunday {{date('h:ia', strtotime($data->open_at))}} -
@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        <div class="col-md-5 my-5 mx-auto menu-con">
+        <div class="col-md-5 my-3 mx-auto menu-con">
             <div class="py-md-4">
                 <h1 class="fw-semibold">Parking</h1>
             </div>
@@ -82,7 +82,7 @@
             </div>
         </div>
 
-        <div class="col-md-5 my-5 mx-auto menu-con">
+        <div class="col-md-5 my-3 mx-auto menu-con">
             <div class="py-md-4">
                 <h1 class="fw-semibold">Facilities</h1>
             </div>
@@ -108,9 +108,9 @@
         @php
         $restImages = explode(',', $data->gallery_img);
         @endphp
-        <div class="row py-md-3 justify-content-center">
+        <div class="row justify-content-center">
             @foreach ($restImages as $img)
-            <div class="col-md-4">
+            <div class="col-md-4 py-md-3">
                 <img src="{{asset ('uploads/image/'.$img) }}" class="d-block w-100 img-fluid" alt="...">
             </div>
             @endforeach
