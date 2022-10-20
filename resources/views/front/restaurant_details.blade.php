@@ -30,7 +30,7 @@
 
 
 <section class="container">
-    <div class="row">
+    <div class="row py-md-5">
         <div class="col-md-5 my-3 mx-auto menu-con rounded">
             <div class="py-md-3">
                 {!! $data->map !!}
