@@ -15,6 +15,29 @@ Booking
 
 <section class="booking col-text">
     <div class="container py-md-5">
+        <div class="row">
+            <div class="col-md-12 align-items-baseline">
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-block">
+                    <strong>{{ $message }}</strong>
+                </div>
+                @endif
+                @if ($message = Session::get('error'))
+                <div class="alert alert-danger alert-block">
+                    <strong>{{ $message }}</strong>
+                </div>
+                @endif
+            </div>
+        </div>
         @include('front.partials.booking_section')
     </div>
 </section>
