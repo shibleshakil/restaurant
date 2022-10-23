@@ -116,7 +116,7 @@ class WebController extends Controller
             }
             
             DB::commit();
-            Session::flash('success', 'Booking Successfull!. Check Your Mail!');
+            return back()->with('success', 'Booking Successfull!. Check Your Mail!');
 
         } catch (\Throwable $th) {
             DB::rollback();
