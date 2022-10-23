@@ -24,6 +24,29 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12 align-items-baseline">
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-block">
+                    <strong>{{ $message }}</strong>
+                </div>
+                @endif
+                @if ($message = Session::get('error'))
+                <div class="alert alert-danger alert-block">
+                    <strong>{{ $message }}</strong>
+                </div>
+                @endif
+            </div>
+        </div>
         @include('front.partials.booking_section')
     </div>
 </section>
@@ -118,4 +141,20 @@
     </div>
 </section>
 
+@endsection
+@section('script')
+<script type="text/javascript">
+$(document).ready(function() {
+    
+    $("#book_restaurant").on("change", function(){
+        var url = "{{ route ('checkResttaurantInfo') }}";
+        var id = $(this).val();
+
+        if (id != '') {
+            checkResttaurantInfo(url, id, "#no_of_guest", "#preferred_time");
+        }
+        
+    });
+});
+</script>
 @endsection

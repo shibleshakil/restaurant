@@ -30,6 +30,7 @@
 </head>
 
 <body>
+    <input type="hidden" id="csrfToken" value="{{ csrf_token() }}">
     <nav class="navbar fixed-top navbar-dark navbar-expand-lg nav-in px-md-3 py-md-4">
         <div class="container-fluid px-md-5">
             <a class="navbar-brand" href="{{route('home')}}">
@@ -182,7 +183,7 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-4">
-                            <a href="#" class="col-green">© {{date('Y')}} Wildwood</a>
+                            <a href="#" class="col-green">© {{date('Y')}} {{$gsetting->app_title}}</a>
                         </div>
                         <div class="col-md-4">
                             <a href="#" class="col-green">Terms & Conditions</a>
@@ -205,10 +206,10 @@
     </div>
 
     <script src="{{asset('/js/jquery-3.6.1.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.35/sweetalert2.all.min.js"></script>
     <script src="{{asset('/js/bootstrap.js')}}"></script>
     <script src="{{asset('/js/app.js')}}"></script>
     <script src="{{asset('/js/custom.min.js')}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.35/sweetalert2.all.min.js"></script>
 
     @yield('script')
 </body>

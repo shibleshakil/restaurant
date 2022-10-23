@@ -58,6 +58,12 @@
                     <i class="feather icon-anchor"></i><span class="menu-title" data-i18n="Dashboard">Restaurant</span>
                 </a>
             </li>
+
+            <li  @if($url == 'booking.index') class="active" @else  class=" nav-item" @endif>
+                <a  href="{{route('booking.index')}}">
+                    <i class="feather icon-anchor"></i><span class="menu-title" data-i18n="Booking List">Booking List</span>
+                </a>
+            </li>
         </ul>
 
     </div>

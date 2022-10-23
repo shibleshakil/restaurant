@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Homepage;
 use App\Models\AppSettings;
 use App\Models\About;
@@ -17,6 +18,10 @@ use App\Models\DinnerMenu;
 use App\Models\MenuCategory;
 use App\Models\MenuSubCategory;
 use App\Models\Menu;
+use App\Models\Booking;
+
+use Session;
+use DB;
 
 class WebController extends Controller
 {
@@ -64,6 +69,60 @@ class WebController extends Controller
         return view('front.restaurant_details', compact('restaurants', 'bookingSetting', 'data', 'lunchItems'));
     }
 
+    public function reserveSelectedTime(Request $request){
+        $reservation = array();
+        $reservation[] = [
+            'restaurant' => $request->restaurant ,
+            'restaurantName' => $request->restaurantName ,
+            'booking_date' => date('d F Y', strtotime($request->booking_date )),
+            'no_of_guest' => $request->no_of_guest ,
+            'preferred_time' => $request->preferred_time
+        ];
+        Session::put('reservation', $reservation);
+        $reservation = Session::get('reservation');
+        
+        return json_encode($reservation);
+    }
+
+
+    public function confirmReservation(Request $request){
+        $validatedData = $request->validate([
+            'first_name' => ['required'],
+            'last_name' => ['required'],
+            'email' => ['required'],
+        ]);
+        $reservation = Session::get('reservation');
+        
+        DB::beginTransaction();
+        try {
+            $data = new Booking;
+            $data->booking_id = "TB". time();
+            $data->restaurant_id = $reservation[0]['restaurant'];
+            $data->first_name = $request->first_name;
+            $data->last_name = $request->last_name;
+            $data->phone_number = $request->phone_number;
+            $data->email = $request->email;
+            $data->no_of_guest = $reservation[0]['no_of_guest'];
+            $data->date = date('Y-m-d', strtotime($reservation[0]['booking_date']));
+            $data->preferred_time = $reservation[0]['preferred_time'];
+            $data->special_request = $request->special_request;
+            $data->save();
+
+            if ($data->email) {
+                Mail::raw('Hi, welcome sir!. Thank you for chossen us. Have a good day!', function ($message) use ($data){
+                    $message->to($data->email)
+                    ->subject("Booking Complete");
+                });
+            }
+            
+            DB::commit();
+            Session::flash('success', 'Booking Successfull!. Check Your Mail!');
+
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return back()->with('error', $th->getMessage());
+        }
+    }
 
 
 }

@@ -21,6 +21,9 @@ Route::get('/restaurants/{slug}', [WebController::class, 'restaurantDetail'])->n
 Route::get('/contact', [WebController::class, 'contact'])->name('contact');
 Route::get('/about', [WebController::class, 'about'])->name('about');
 Route::get('/booking', [WebController::class, 'booking'])->name('booking');
+Route::post('/reserveSelectedTime', [WebController::class, 'reserveSelectedTime'])->name('reserveSelectedTime');
+Route::post('/confirmReservation', [WebController::class, 'confirmReservation'])->name('confirmReservation');
+Route::get('checkResttaurantInfo', 'App\Http\Controllers\CommonController@checkResttaurantInfo')->name('checkResttaurantInfo');
 
 
 
@@ -93,6 +96,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::put('menu/{id}', 'App\Http\Controllers\Back\Setup\MenuController@restore')->name('menu.restore');
     Route::resource('menu', 'App\Http\Controllers\Back\Setup\MenuController')->parameters('menu', 'id');
     Route::post('menu/{id}/update', 'App\Http\Controllers\Back\Setup\MenuController@update')->name('menu.update');
+
+    Route::delete('system/booking/{id}', 'App\Http\Controllers\Back\BookingController@delete')->name('booking.delete');
+    Route::put('system/booking/{id}', 'App\Http\Controllers\Back\BookingController@restore')->name('booking.restore');
+    Route::resource('system/booking', 'App\Http\Controllers\Back\BookingController')->parameters('booking', 'id');
+    Route::post('system/booking/{id}/update', 'App\Http\Controllers\Back\BookingController@update')->name('booking.update');
 
     Route::get('getSubCatAgainstCat', 'App\Http\Controllers\CommonController@getSubCatAgainstCat')->name('getSubCatAgainstCat');
 
