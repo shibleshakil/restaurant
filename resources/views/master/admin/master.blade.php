@@ -26,6 +26,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('/backend/vendors/css/extensions/unslider.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('/backend/vendors/css/weather-icons/climacons.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset ('backend/vendors/css/tables/datatable/datatables.min.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->

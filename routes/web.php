@@ -25,15 +25,9 @@ Route::post('/reserveSelectedTime', [WebController::class, 'reserveSelectedTime'
 Route::post('/confirmReservation', [WebController::class, 'confirmReservation'])->name('confirmReservation');
 Route::get('checkResttaurantInfo', 'App\Http\Controllers\CommonController@checkResttaurantInfo')->name('checkResttaurantInfo');
 
-
-
+//backend
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
-
-Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+   Route::get('/dashboard', 'App\Http\Controllers\Back\DashboardController@index')->name('dashboard');
 //    Route::get('/form', function () {return view('admin.form');})->name('form');
 //    Route::get('/managesite', [AdminController::class, 'manage'])->name('managesite');
 

@@ -70,9 +70,7 @@
                         Little ones love our restaurants and the fun kids’
                         menu filled with age appropriate activities and healthy food.
                     </p>
-                    <button class="btn-rounded mx-auto my-2 fw-semibold btn text-dark text-wrap">
-                        BOOK A TABLE
-                    </button>
+                    <a href="{{ route ('booking') }}" class="btn-rounded mx-auto my-2 fw-semibold btn text-dark text-wrap">BOOK A TABLE</a>
                 </div>
             </div>
             <div class="col-md-1"></div>
@@ -123,9 +121,7 @@
                     <div class="container text-center mx-md-auto ">
                         <h5 class="fs-6">FOOD & DRINK</h5>
                         <h1>MENU</h1>
-                        <button class="btn-rounded mx-auto my-2 fw-semibold btn text-dark text-wrap">
-                            VIEW MENU
-                        </button>
+                        <a href="{{ route ('menus') }}" class="btn-rounded mx-auto my-2 fw-semibold btn text-dark text-wrap">VIEW ALL</a>
                     </div>
                 </div>
             </div>
@@ -135,20 +131,14 @@
                         <h5 class="fs-6">FIND YOUR NEAREST</h5>
                         <h1>RESTAURANT</h1>
                         <div class="justify-content-center">
-                            <select class="form-select btn-rounded w-75 text-center" id="">
-                                <option selected>Select Location</option>
-                                <option value="1">Dhaka</option>
-                                <option value="2">Chittagong</option>
-                                <option value="3">Khulna</option>
-                                <option value="4">Barishal</option>
-                                <option value="5">Rajshahi</option>
-                                <option value="6">Sylhet</option>
+                            <select class="form-select btn-rounded w-50 my-3 text-center gotourl" id="">
+                                <option selected>Select</option>
+                                @foreach ($restaurants as $type)
+                                <option value="{{ route ('restaurantDetail', ['slug' => $type->slug])}}">{{$type->name}}
+                                </option>
+                                @endforeach
                             </select>
-
-
-                            <button class="btn-rounded mx-auto my-2 fw-semibold btn text-dark text-wrap">
-                                VIEW All
-                            </button>
+                            <a href="{{ route ('restaurantList') }}" class="btn-rounded mx-auto my-2 fw-semibold btn text-dark text-wrap">VIEW ALL</a>
                         </div>
                     </div>
 

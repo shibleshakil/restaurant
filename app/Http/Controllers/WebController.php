@@ -27,7 +27,8 @@ class WebController extends Controller
 {
     public function index(){
         $home = Homepage::find(1);
-        return view('front.home', compact('home'));
+        $restaurants = Restaurant::where('is_active', 1)->orderBy('name')->get();
+        return view('front.home', compact('home', 'restaurants'));
     }
     public function menus(){
         $menuCats = MenuCategory::where('is_active', 1)->get();
@@ -63,6 +64,9 @@ class WebController extends Controller
         if (!$data) {
             abort(404);
         }
+        $data->no_of_visit = $data->no_of_visit + 1;
+        $data->save();
+        
         $bookingSetting = Bookingpage::findorFail(1);
         $restaurants = Restaurant::where('is_active', 1)->orderBy('name')->get();
         $lunchItems = LunchMenu::where('restaurant_id', $data->id)->inRandomOrder()->limit(2)->get();
