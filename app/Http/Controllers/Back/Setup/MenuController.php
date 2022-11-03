@@ -107,7 +107,7 @@ class MenuController extends Controller
     {
         $data = Menu::findorFail($id);
         $categories = MenuCategory::where('is_active', 1)->orderBy('name')->get();
-        $subCategories = MenuSubCategory::where('is_active', 1)->where('menu_category_id', $data->menu_sub_category_id)->orderBy('name')->get();
+        $subCategories = MenuSubCategory::where('is_active', 1)->where('menu_category_id', $data->subCategory->menu_category_id)->orderBy('name')->get();
         return view('admin.setup.menu.create', compact('categories', 'subCategories', 'data'));
     }
 
