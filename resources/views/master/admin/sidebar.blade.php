@@ -64,6 +64,12 @@
                     <i class="fa-solid fa-check-to-slot"></i><span class="menu-title" data-i18n="Booking List">Booking List</span>
                 </a>
             </li>
+
+            <li  @if($url == 'systemUser.index' || $url == 'systemUser.create' || $url == 'systemUser.edit') class="active" @else  class=" nav-item" @endif>
+                <a  href="{{route('systemUser.index')}}">
+                    <i class="fa-solid fa-users"></i><span class="menu-title" data-i18n="ACL">ACL</span>
+                </a>
+            </li>
         </ul>
 
     </div>
