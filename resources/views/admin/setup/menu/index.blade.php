@@ -55,6 +55,9 @@
                                             <thead>
                                                 <tr>
                                                     <th>Sl</th>
+                                                    @if (Auth()->user()->role_id == 1)
+                                                        <th>Restaurant Info</th>
+                                                    @endif
                                                     <th>Name</th>
                                                     <th>Category</th>
                                                     <th>Sub Category</th>
@@ -68,6 +71,12 @@
                                                     @foreach ($datas as $data)
                                                         <tr>
                                                             <td>{{++$sl}}</td>
+                                                            @if (Auth()->user()->role_id == 1)
+                                                                <td>
+                                                                    <span>{{$data->restaurant_id ? $data->restaurant->name : 'All Restaurant'}}</span><br>
+                                                                    <span>{{($data->restaurant_id && $data->restaurant->area_id)  ? '( '. $data->restaurant->area->title . ' )' : ''}}</span>
+                                                                </td>
+                                                            @endif
                                                             <td>{{$data->name}}</td>
                                                             <td>{{$data->menu_sub_category_id ? $data->subCategory->category->name : ''}}</td>
                                                             <td>{{$data->menu_sub_category_id ? $data->subCategory->name : ''}}</td>
@@ -75,19 +84,24 @@
                                                             <td>{{$data->description}}</td>
                                                             <td>
                                                                 @if($data->is_active == 1)
-                                                                    <a href="{{ route ('menu.edit', ['menu'=>$data->id])}}">
-                                                                        <button type="button" title="Edit" class="btn btn-icon btn-outline-primary btn-sm">
-                                                                        <i class="fa fa-pencil-square"></i></button>
-                                                                    </a>
-                                                                    <button type="button" class="btn btn-icon btn-outline-danger btn-sm" title="Inactive" 
-                                                                        onclick="deleteData('{{ route('menu.delete', [$data->id]) }}')">
-                                                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                                                    </button>
+                                                                    @if((Auth()->user()->role_id == 1) || (Auth()->user()->restaurant_id == $data->restaurant_id))
+                                                                        <a href="{{ route ('menu.edit', ['menu'=>$data->id])}}">
+                                                                            <button type="button" title="Edit" class="btn btn-icon btn-outline-primary btn-sm">
+                                                                            <i class="fa fa-pencil-square"></i></button>
+                                                                        </a>
+                                                                        <button type="button" class="btn btn-icon btn-outline-danger btn-sm" title="Inactive" 
+                                                                            onclick="deleteData('{{ route('menu.delete', [$data->id]) }}')">
+                                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                                        </button>
+                                                                        @else <p>Common Menu</p>
+                                                                    @endif
                                                                 @else
+                                                                    @if((Auth()->user()->role_id == 1) || (Auth()->user()->restaurant_id == $data->restaurant_id))
                                                                     <button type="button" class="btn btn-icon btn-outline-primary btn-sm" title="Restore" 
                                                                         onclick="restoreData('{{ route('menu.restore', [$data->id]) }}')">
                                                                         <i class="fa fa-undo" aria-hidden="true"></i>
                                                                     </button>
+                                                                    @endif
                                                                 @endif
                                                             </td>
                                                         </tr>
@@ -97,6 +111,9 @@
                                             <tfoot class="display-hidden">
                                                 <tr>
                                                     <th>Sl</th>
+                                                    @if (Auth()->user()->role_id == 1)
+                                                        <th>Restaurant Info</th>
+                                                    @endif
                                                     <th>Name</th>
                                                     <th>Category</th>
                                                     <th>Sub Category</th>

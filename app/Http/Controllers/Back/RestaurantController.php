@@ -23,6 +23,9 @@ class RestaurantController extends Controller
     public function index()
     {
         $datas = Restaurant::where('is_active', 1)->get()->reverse();
+        if (Auth()->user()->role_id == 2) {
+            $datas = Restaurant::where('id', Auth()->user()->restaurant_id)->get()->reverse();
+        }
         $sl = 0;
         return view('admin.setup.restaurant.index', compact('datas', 'sl'));
     }
