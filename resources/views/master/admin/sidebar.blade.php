@@ -51,6 +51,9 @@
                     <li @if($url == 'menu.index' || $url == 'menu.create' || $url == 'menu.edit') class="active" @endif>
                         <a href="{{route('menu.index')}}" data-i18n="Menu">Menu</a>
                     </li>
+                    <li @if($url == 'view_pdf') class="active" @endif>
+                        <a href="{{route('view_pdf')}}" data-i18n="Menu">PDF</a>
+                    </li>
                 </ul>
             </li>
 

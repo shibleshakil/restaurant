@@ -26,4 +26,7 @@ class AdminController extends Controller
     public function bookingPage(){
         return view('admin.bookingpage');
     }
+    public function viewPdf(){
+        return view('admin.setup.menu.view_pdf');
+    }
 }
