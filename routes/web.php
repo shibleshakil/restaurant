@@ -41,6 +41,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
 //    Route::get('/bookingpage', [AdminController::class, 'bookingPage'])->name('bookingpage');
 
+    Route::get('/view_pdf', [AdminController::class, 'viewPdf'])->name('view_pdf');
+
     Route::match(['get', 'post'], 'managewebsite', 'App\Http\Controllers\Back\Setup\SettingsController@appItemUpdate')->name('managewebsite');
 
     Route::match(['get', 'post'], 'mananagehomepage', 'App\Http\Controllers\HomepageController@homepageUpdate')->name('mananagehomepage');
