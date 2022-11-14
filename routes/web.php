@@ -98,4 +98,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     Route::get('getSubCatAgainstCat', 'App\Http\Controllers\CommonController@getSubCatAgainstCat')->name('getSubCatAgainstCat');
 
+    Route::delete('systemUser/{id}', 'App\Http\Controllers\Back\Setup\AclController@delete')->name('systemUser.delete');
+    Route::put('systemUser/{id}', 'App\Http\Controllers\Back\Setup\AclController@restore')->name('systemUser.restore');
+    Route::resource('systemUser', 'App\Http\Controllers\Back\Setup\AclController')->parameters('systemUser', 'id');
+    Route::post('systemUser/{id}/update', 'App\Http\Controllers\Back\Setup\AclController@update')->name('systemUser.update');
+
 });

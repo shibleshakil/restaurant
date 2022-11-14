@@ -1,11 +1,15 @@
 @extends('master.admin.master')
-@section('title', 'Menu')
+@section('title')
+System Users
+@endsection
+
 @section('body')
+
     <div class="content-wrapper">
         <div class="content-header row">
             <div class="content-header-left col-md-6 col-12 mb-1">
                 <h3 class="content-header-title">
-                    <a href="{{ route ('menu.create')}}" class="btn btn-primary">Menu <i class="fa fa-plus"></i></a>
+                    <a href="{{ route ('systemUser.create')}}" class="btn btn-primary">ADD USER <i class="fa fa-plus"></i></a>
                 </h3>
             </div>
             <div class="content-header-right breadcrumbs-right breadcrumbs-top col-md-6 col-12">
@@ -13,9 +17,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route ('home') }}">Home</a>
                         </li>
-                        <li class="breadcrumb-item"><a href="#">Menu</a>
-                        </li>
-                        <li class="breadcrumb-item active"><a href="#">Menu List</a>
+                        <li class="breadcrumb-item active"><a href="#">ACL</a>
                         </li>
                     </ol>
                 </div>
@@ -55,40 +57,25 @@
                                             <thead>
                                                 <tr>
                                                     <th>Sl</th>
-                                                    <th>Name</th>
-                                                    <th>Category</th>
-                                                    <th>Sub Category</th>
-                                                    <th>Price</th>
-                                                    <th>Description</th>
+                                                    <th>User Name</th>
+                                                    <th>User Email</th>
+                                                    <th>Restaurant</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @if (sizeof ($datas) > 0)
-                                                    @foreach ($datas as $data)
+                                                @if(sizeof ($datas) > 0)
+                                                    @foreach($datas as $data)
                                                         <tr>
                                                             <td>{{++$sl}}</td>
                                                             <td>{{$data->name}}</td>
-                                                            <td>{{$data->menu_sub_category_id ? $data->subCategory->category->name : ''}}</td>
-                                                            <td>{{$data->menu_sub_category_id ? $data->subCategory->name : ''}}</td>
-                                                            <td>{{$data->price}}</td>
-                                                            <td>{{$data->description}}</td>
+                                                            <td>{{$data->email}}</td>
+                                                            <td>{{$data->restaurant_id ? $data->restaurant->name : ''}}</td>
                                                             <td>
-                                                                @if($data->is_active == 1)
-                                                                    <a href="{{ route ('menu.edit', ['menu'=>$data->id])}}">
-                                                                        <button type="button" title="Edit" class="btn btn-icon btn-outline-primary btn-sm">
-                                                                        <i class="fa fa-pencil-square"></i></button>
-                                                                    </a>
-                                                                    <button type="button" class="btn btn-icon btn-outline-danger btn-sm" title="Inactive" 
-                                                                        onclick="deleteData('{{ route('menu.delete', [$data->id]) }}')">
-                                                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                                                    </button>
-                                                                @else
-                                                                    <button type="button" class="btn btn-icon btn-outline-primary btn-sm" title="Restore" 
-                                                                        onclick="restoreData('{{ route('menu.restore', [$data->id]) }}')">
-                                                                        <i class="fa fa-undo" aria-hidden="true"></i>
-                                                                    </button>
-                                                                @endif
+                                                                <a href="{{ route ('systemUser.edit', ['systemUser'=>$data->id])}}">
+                                                                    <button type="button" title="Edit" class="btn btn-icon btn-outline-primary btn-sm">
+                                                                    <i class="fa fa-pencil-square"></i></button>
+                                                                </a>
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -97,11 +84,9 @@
                                             <tfoot class="display-hidden">
                                                 <tr>
                                                     <th>Sl</th>
-                                                    <th>Name</th>
-                                                    <th>Category</th>
-                                                    <th>Sub Category</th>
-                                                    <th>Price</th>
-                                                    <th>Description</th>
+                                                    <th>User Name</th>
+                                                    <th>User Email</th>
+                                                    <th>Restaurant</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </tfoot>
@@ -116,6 +101,5 @@
             <!--/ Column selectors table -->
         </div>
     </div>
-@endsection
-@section('script')
+
 @endsection
