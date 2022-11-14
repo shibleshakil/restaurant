@@ -24,6 +24,7 @@ Route::get('/booking', [WebController::class, 'booking'])->name('booking');
 Route::post('/reserveSelectedTime', [WebController::class, 'reserveSelectedTime'])->name('reserveSelectedTime');
 Route::post('/confirmReservation', [WebController::class, 'confirmReservation'])->name('confirmReservation');
 Route::get('checkResttaurantInfo', 'App\Http\Controllers\CommonController@checkResttaurantInfo')->name('checkResttaurantInfo');
+Route::get('restaurantMenuList', 'App\Http\Controllers\CommonController@restaurantMenuList')->name('restaurantMenuList');
 
 //backend
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {

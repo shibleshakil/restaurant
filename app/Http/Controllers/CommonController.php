@@ -5,11 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MenuSubCategory;
 use App\Models\Restaurant;
+use App\Models\Menu;
 
 class CommonController extends Controller
 {
     public function getSubCatAgainstCat(Request $request){
         $datas = MenuSubCategory::where('menu_category_id', $request->id)->get();
+
+        return json_encode($datas);
+    }
+
+    public function restaurantMenuList(Request $request){
+        $datas = Menu::where('restaurant_id', $request->id)->orWhereNull('restaurant_id')->get();
 
         return json_encode($datas);
     }
