@@ -9,6 +9,7 @@ Dashboard
         <!-- Minimal statistics with bg color section start -->
         <section id="minimal-statistics-bg">
             <div class="row">
+                @if (Auth()->user()->role_id != 2)
                 <div class="col-xl-3 col-sm-6 col-12">
                     <div class="card bg-primary">
                         <div class="card-content">
@@ -43,6 +44,7 @@ Dashboard
                         </div>
                     </div>
                 </div>
+                @endif
                 <div class="col-xl-3 col-sm-6 col-12">
                     <div class="card bg-success">
                         <div class="card-content">
@@ -77,6 +79,7 @@ Dashboard
                         </div>
                     </div>
                 </div>
+                @if (Auth()->user()->role_id != 2)
                 <div class="col-xl-3 col-sm-6 col-12">
                     <div class="card bg-warning">
                         <div class="card-content">
@@ -94,6 +97,7 @@ Dashboard
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         </section>
         <!-- // Minimal statistics with bg color section end -->

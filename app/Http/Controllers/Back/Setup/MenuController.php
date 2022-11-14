@@ -9,6 +9,7 @@ use DB;
 use App\Models\MenuCategory;
 use App\Models\MenuSubCategory;
 use App\Models\Menu;
+use App\Models\Restaurant;
 use Image;
 
 class MenuController extends Controller
@@ -20,8 +21,12 @@ class MenuController extends Controller
      */
     public function index()
     {
+        if (Auth()->user()->role_id == 2) {
+            $datas = Menu::where('restaurant_id', Auth()->user()->restaurant_id)->orWhereNull('restaurant_id')->get()->reverse();
+        }else{
+            $datas = Menu::get()->reverse();
+        }
         $categories = MenuCategory::where('is_active', 1)->orderBy('name')->get();
-        $datas = Menu::get()->reverse();
         $sl = 0;
         return view('admin.setup.menu.index', compact('categories', 'datas', 'sl'));
     }
@@ -33,8 +38,9 @@ class MenuController extends Controller
      */
     public function create()
     {
+        $restaurants = Restaurant::where('is_active', 1)->orderBy('name')->get();
         $categories = MenuCategory::where('is_active', 1)->orderBy('name')->get();
-        return view('admin.setup.menu.create', compact('categories'));
+        return view('admin.setup.menu.create', compact('restaurants', 'categories'));
     }
 
     /**
@@ -48,7 +54,7 @@ class MenuController extends Controller
         $validatedData = $request->validate([
             'category_id' => ['required'],
             'sub_category_id' => ['required'],
-            'name' => ['required', 'unique:menus,name,'.$request->id.',id,menu_sub_category_id,'.$request->sub_category_id],
+            'name' => ['required', 'unique:menus,name,'.$request->id.',id,menu_sub_category_id,'.$request->sub_category_id.',restaurant_id,'.$request->restaurant_id],
         ]);
 
         DB::beginTransaction();
@@ -56,6 +62,7 @@ class MenuController extends Controller
         try {
             $data = new Menu;
             $data->name = $request->name;
+            $data->restaurant_id = $request->restaurant_id;
             $data->menu_sub_category_id = $request->sub_category_id;
             $data->price = $request->price;
             $data->description = $request->description;
@@ -105,10 +112,11 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
+        $restaurants = Restaurant::where('is_active', 1)->orderBy('name')->get();
         $data = Menu::findorFail($id);
         $categories = MenuCategory::where('is_active', 1)->orderBy('name')->get();
         $subCategories = MenuSubCategory::where('is_active', 1)->where('menu_category_id', $data->subCategory->menu_category_id)->orderBy('name')->get();
-        return view('admin.setup.menu.create', compact('categories', 'subCategories', 'data'));
+        return view('admin.setup.menu.edit', compact('restaurants', 'categories', 'subCategories', 'data'));
     }
 
     /**
@@ -118,13 +126,13 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         // dd($request->all());
         $validatedData = $request->validate([
             'category_id' => ['required'],
             'sub_category_id' => ['required'],
-            'name' => ['required', 'unique:menus,name,'.$request->id.',id,menu_sub_category_id,'.$request->sub_category_id],
+            'name' => ['required', 'unique:menus,name,'.$request->id.',id,menu_sub_category_id,'.$request->sub_category_id.',restaurant_id,'.$request->restaurant_id],
         ]);
 
         DB::beginTransaction();
@@ -132,6 +140,7 @@ class MenuController extends Controller
         try {
             $data = Menu::find($id);
             $data->name = $request->name;
+            $data->restaurant_id = $request->restaurant_id;
             $data->menu_sub_category_id = $request->sub_category_id;
             $data->price = $request->price;
             $data->description = $request->description;
@@ -158,6 +167,7 @@ class MenuController extends Controller
             
         } catch (\Throwable $th) {
             DB::rollback();
+            return back()->with('error', $th->getMessage());
             return back()->with('error', 'Somethings went wrong. Try Again');
         }
     }

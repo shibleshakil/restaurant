@@ -22,6 +22,13 @@ class DashboardController extends Controller
         $totalBookings = $this->bookings->count();
         $todayBookings = $this->bookings->where('date', date('Y-m-d'))->count();
         $mostVisited = Restaurant::where('is_active', 1)->orderBy('no_of_visit', 'DESC')->first()->name;
+        if (Auth()->user()->role_id == 2) {
+            $totalBookings = $this->bookings->where('restaurant_id', Auth()->user()->restaurant_id)->count();
+            $todayBookings = $this->bookings->where('restaurant_id', Auth()->user()->restaurant_id)->where('date', date('Y-m-d'))->count();
+            $totalArea = 0;
+            $totaRestaurants = 0;
+            $mostVisited = '';
+        }
 
         return view('dashboard', [
             'totalArea' => $totalArea,

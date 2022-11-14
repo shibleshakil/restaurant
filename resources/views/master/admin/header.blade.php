@@ -29,10 +29,10 @@
                     <li class="dropdown dropdown-user nav-item">
                         <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                             <div class="avatar avatar-online">
-                                <img src="{{asset('/backend')}}/images/portrait/small/avatar-s-1.png"
+                                <img src="{{asset('/backend/images/portrait/small/avatar-s-1.png')}}"
                                     alt="avatar"><i></i>
                             </div>
-                            <span class="user-name">John Doe</span>
+                            <span class="user-name">{{Auth()->user()->name}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="#"><i class="feather icon-user"></i> Edit Profile</a>

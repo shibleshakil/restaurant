@@ -7,6 +7,7 @@
                     <i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span>
                 </a>
             </li>
+            @if (Auth()->user()->role_id == 1)
             <li class="nav-item">
                 <a href="">
                     <i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Manage Site</span>
@@ -47,13 +48,13 @@
                     <li @if($url == 'menuSubCategory.index') class="active" @endif>
                         <a href="{{route('menuSubCategory.index')}}" data-i18n="Menu Sub Category">Menu Sub Category</a>
                     </li>
-                    <li @if($url == 'menu.index') class="active" @endif>
+                    <li @if($url == 'menu.index' || $url == 'menu.create' || $url == 'menu.edit') class="active" @endif>
                         <a href="{{route('menu.index')}}" data-i18n="Menu">Menu</a>
                     </li>
                 </ul>
             </li>
 
-            <li  @if($url == 'restaurant.index') class="active" @else  class=" nav-item" @endif>
+            <li  @if($url == 'restaurant.index' || $url == 'restaurant.create' || $url == 'restaurant.edit') class="active" @else  class=" nav-item" @endif>
                 <a  href="{{route('restaurant.index')}}">
                     <i class="fa-solid fa-utensils"></i><span class="menu-title" data-i18n="Dashboard">Restaurant</span>
                 </a>
@@ -70,6 +71,20 @@
                     <i class="fa-solid fa-users"></i><span class="menu-title" data-i18n="ACL">ACL</span>
                 </a>
             </li>
+            @else
+            
+            <li  @if($url == 'restaurant.index' || $url == 'restaurant.create' || $url == 'restaurant.edit') class="active" @else  class=" nav-item" @endif>
+                <a  href="{{route('restaurant.index')}}">
+                    <i class="fa-solid fa-utensils"></i><span class="menu-title" data-i18n="Restaurant">Restaurant</span>
+                </a>
+            </li>
+
+            <li  @if($url == 'menu.index' || $url == 'menu.create' || $url == 'menu.edit') class="active" @else  class=" nav-item" @endif>
+                <a  href="{{route('menu.index')}}">
+                    <i class="fa-solid fa-utensils"></i><span class="menu-title" data-i18n="Menu">Menu</span>
+                </a>
+            </li>
+            @endif
         </ul>
 
     </div>

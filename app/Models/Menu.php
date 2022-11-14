@@ -13,4 +13,8 @@ class Menu extends Model
     public function subCategory() {
         return $this->belongsTo(MenuSubCategory::class, 'menu_sub_category_id', 'id');
     }
+
+    public function restaurant() {
+        return $this->belongsTo(Restaurant::class, 'restaurant_id', 'id');
+    }
 }

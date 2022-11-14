@@ -1,15 +1,18 @@
 <div class="row">
+    @if (Auth()->user()->role_id == 1)
+        
     <div class="form-group col-md-6 ">
         <label for="restaurant_id">Select Restaurant  <span class="text-danger">*</span></label>
-        <select name="restaurant_id" id="restaurant_id" class="form-control select2" required>
-            <option value="" selected>Select</option>
-            {{-- @foreach ($restaurants as $type) --}}
-                {{-- <option value="{{$type->id}}" @if(($url == 'systemUser.edit') && $data->restaurant_id == $type->id) selected @endif>{{$type->name}} ({{$type->area->title}})</option> --}}
-                <option value="1"  >Pan Pacific</option>
-                <option value="1"  >Westin</option>
-            {{-- @endforeach --}}
+        <select name="restaurant_id" id="restaurant_id" class="form-control select2">
+            <option value="" @if(($url == 'systemUser.edit') && $data->restaurant_id == "") selected @endif >All Restaurant</option>
+            @foreach ($restaurants as $type)
+            <option value="{{$type->id}}" @if(($url == 'systemUser.edit') && $data->restaurant_id == $type->id) selected @endif>{{$type->name}} ({{$type->area->title}})</option>
+            @endforeach
         </select>
     </div>
+    @else
+    <input type="hidden" name="restaurant_id" value="{{Auth()->user()->restaurant_id}}">
+    @endif
     <div class="form-group col-md-6 ">
         <label for="category_id">Select Menu Category</label>
         <select name="category_id" id="category_id" class="form-control select2">

@@ -11,7 +11,9 @@ Restaurant List
     <div class="content-header row">
         <div class="content-header-left col-md-6 col-12 mb-1">
             <h3 class="content-header-title">
-                <a href="{{ route ('restaurant.create')}}" class="btn btn-primary">Add<i class="fa fa-plus"></i></a>
+                @if(Auth()->user()->role_id != 2)
+                    <a href="{{ route ('restaurant.create')}}" class="btn btn-primary">Add<i class="fa fa-plus"></i></a>
+                @endif
             </h3>
         </div>
         <div class="content-header-right breadcrumbs-right breadcrumbs-top col-md-6 col-12">
@@ -66,7 +68,11 @@ Restaurant List
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
+                            @if(Auth()->user()->role_id == 2)
+                            <h2 class="card-title">Restaurants Info</h2>
+                            @else
                             <h2 class="card-title">Restaurants List</h2>
+                            @endif
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered action_table">
                                     <thead>
@@ -117,9 +123,11 @@ Restaurant List
                                                         <a class="dropdown-item" href="{{ route('restaurant.dinner',$data->id) }}"><i class="fa fa-angle-double-right"></i> Dinner Menu</a>
                                                         <a class="dropdown-item" href="{{ route('restaurant.facility',$data->id) }}"><i class="fa fa-angle-double-right"></i> Facility</a>
                                                         <a class="dropdown-item" href="{{ route('restaurant.parking',$data->id) }}"><i class="fa fa-angle-double-right"></i> Parking</a>
+                                                        @if(Auth()->user()->role_id != 2)
                                                         <a class="dropdown-item" onclick="deleteData('{{ route('restaurant.delete', [$data->id]) }}')">
                                                             <i class="fa fa-angle-double-right"></i> Delete
                                                         </a>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </td>
