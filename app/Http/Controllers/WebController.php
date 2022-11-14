@@ -66,11 +66,11 @@ class WebController extends Controller
         }
         $data->no_of_visit = $data->no_of_visit + 1;
         $data->save();
-        
+        $menus = Menu::where('restaurant_id', $data->id)->orWhereNull('restaurant_id')->get();
         $bookingSetting = Bookingpage::findorFail(1);
         $restaurants = Restaurant::where('is_active', 1)->orderBy('name')->get();
         $lunchItems = LunchMenu::where('restaurant_id', $data->id)->inRandomOrder()->limit(2)->get();
-        return view('front.restaurant_details', compact('restaurants', 'bookingSetting', 'data', 'lunchItems'));
+        return view('front.restaurant_details', compact('restaurants', 'bookingSetting', 'data', 'lunchItems', 'menus'));
     }
 
     public function reserveSelectedTime(Request $request){
@@ -96,6 +96,21 @@ class WebController extends Controller
             'email' => ['required'],
         ]);
         $reservation = Session::get('reservation');
+        $quantity = array();
+        $orderDetails = array();
+        if ($request->ordered_menu) {
+            foreach ($request->ordered_menu as $key => $value) {
+                if (!($request->quantity[$key]) || $request->quantity[$key] < 1) {
+                    array_push($quantity, 1);
+                }else{
+                    array_push($quantity, $request->quantity[$key]);
+                }
+            }
+        }
+        
+        $menu = implode(',', $request->ordered_menu);
+        $menuQty = implode(',', $quantity);
+        $orderDetails = Menu::whereIn('id', $request->ordered_menu)->get();
         
         DB::beginTransaction();
         try {
@@ -106,6 +121,8 @@ class WebController extends Controller
             $data->last_name = $request->last_name;
             $data->phone_number = $request->phone_number;
             $data->email = $request->email;
+            $data->menu = $menu;
+            $data->quantity = $menuQty;
             $data->no_of_guest = $reservation[0]['no_of_guest'];
             $data->date = date('Y-m-d', strtotime($reservation[0]['booking_date']));
             $data->preferred_time = $reservation[0]['preferred_time'];
@@ -116,6 +133,24 @@ class WebController extends Controller
                 Mail::raw('Hi, welcome sir!. Thank you for chossen us. Have a good day!', function ($message) use ($data){
                     $message->to($data->email)
                     ->subject("Booking Complete");
+                });
+            }
+            $restaurantInfo = Restaurant::find($data->restaurant_id);
+            if ($restaurantInfo->email) {
+                $emailSubject = "You Have a new reservation";
+                $toMail = $restaurantInfo->email;
+
+                $data1 = [
+                    'name' =>$data->first_name,
+                    'phone' => $data->phone_number,
+                    'email' => $data->email,
+                    'no_of_guest' => $data->no_of_guest,
+                    'orderDetails' => $orderDetails,
+                    'quantity' => $quantity,
+                ]; // Empty array
+                Mail::send('emails.restaurant_reservation', ["emailData"=>$data1], function($message) use ($toMail, $emailSubject)
+                {
+                    $message->to($toMail)->subject($emailSubject);
                 });
             }
             

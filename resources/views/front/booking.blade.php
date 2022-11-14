@@ -48,10 +48,12 @@ Booking
 $(document).ready(function() {
     $("#book_restaurant").on("change", function(){
         var url = "{{ route ('checkResttaurantInfo') }}";
+        var murl = "{{ route ('restaurantMenuList') }}";
         var id = $(this).val();
 
         if (id != '') {
             checkResttaurantInfo(url, id, "#no_of_guest", "#preferred_time");
+            restaurantMenuList( id, murl, "#menu");
         }
         
     });

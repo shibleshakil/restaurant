@@ -114,6 +114,48 @@
                 </div>
 
                 <div class="row w-100">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6 ms-md-auto">
+                        <label for="menu" class="form-label fw-semibold ">Select Menu</label>
+                        <select class="form-select w-100" id="menu" name="menu">
+                            @if($url=='restaurantDetail' )
+                                <option value="">Select Menu</option>
+                                @foreach ($menus as $type)
+                                    <option value="{{$type->id}}">{{$type->name}}   Price :   {{$type->price}}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                    </div>
+                    <div class="col-md-3"></div>
+                    
+                </div>
+
+                <div class="row w-100">
+                    <input type="hidden" id="ingredient_count" value="0">
+                    <input type="hidden" id="ingredient_sl" value="0">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6 ms-md-auto">
+                        <h5>Selected Menu</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="">
+                                <thead>
+                                    <tr>
+                                        <th>Sl</th>
+                                        <th>Menu</th>
+                                        <th>Quantity</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ingredient_items">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+
+                <div class="row w-100">
                     <div class="col-md-6 mx-auto">
                         <label for="special_request" class="form-label fw-semibold ">Special Request</label>
                         <textarea name="special_request" class="form-control w-100" id="special_request" cols="30" rows="4"></textarea>
