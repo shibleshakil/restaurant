@@ -3,6 +3,7 @@
 <p><Strong>Phone : {{$emailData['phone']}}</Strong></p>
 <p><Strong>Email : {{$emailData['email']}}</Strong></p>
 <p><Strong>No. of Guest : {{$emailData['no_of_guest']}}</Strong></p>
+<p><Strong>Reserved For : {{date('d M, Y', strtotime($emailData['date']))}}{{date('h:ia', strtotime($emailData['preferred_time']))}}</Strong></p>
 <table>
     <thead>
         <tr>
@@ -24,3 +25,4 @@
         @endif
     </tbody>
 </table>
+<p>Customer comments: {{$emailData['special_request']}}</p>
