@@ -32,7 +32,6 @@
             <div class="card-body">
                 <form class="form" method="POST" action="{{route('area.update', $data->id)}}" enctype="multipart/form-data">
                     @csrf
-                    @method('PUT')
                     <h4 class="form-section"><i class="feather icon-user"></i> Edit Area</h4>
                     <div class="row align-items-center d-block">
 

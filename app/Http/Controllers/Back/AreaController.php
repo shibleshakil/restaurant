@@ -112,17 +112,33 @@ class AreaController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function delete($id)
     {
+        DB::beginTransaction();
+        try {
+            $data = Area::findorFail($id);
+            $data->is_active = 0;
+            $data->save();
+            DB::commit();
+            return 'Area Inactive Successfully!';
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return 'Somethings Went Wrong!';
+        }
+    }
 
-        $data =Area::find($id);
-        $data->is_active = 0;
-        $data->save();
-        return redirect()->route('area.index')->with('message', 'Area Deleted Successfully');    }
+    public function restore($id)
+    {
+        DB::beginTransaction();
+        try {
+            $data = Area::find($id);
+            $data->is_active = 1;
+            $data->save();
+            DB::commit();
+            return 'Area Activated Successfully!';
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return 'Somethings Went Wrong!';
+        }
+    }
 }

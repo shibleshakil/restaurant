@@ -48,6 +48,55 @@ function deleteData(url) {
     });
 }
 
+function restoreData(url) {
+    Swal.fire({
+        title: "Are you sure?",
+        // text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Active it!",
+        confirmButtonClass: "btn btn-warning mr-10",
+        cancelButtonClass: "btn btn-danger ml-1",
+        buttonsStyling: false,
+    }).then(function (result) {
+        if (result.value) {
+            $.ajax({
+                url: url,
+                type: "PUT",
+                data: {
+                    "_token": $('#csrfToken').val(),
+                },
+                success: function (result) {
+                    toastr.success(
+                        result,
+                        'Reactive!',
+                        {
+                            positionClass: 'toast-top-right',
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut",
+                            timeOut: 2000
+                        }
+                    );
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+                }
+            });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire({
+                title: "Cancelled",
+                text: "No Active Taken 🙂",
+                type: "error",
+                confirmButtonClass: "btn btn-success"
+            })
+            setTimeout(function () {
+                location.reload();
+            }, 1000);
+        }
+    });
+}
 function getSubCatAgainstCat(id, url, view) {
     $.ajax({
         url: url,

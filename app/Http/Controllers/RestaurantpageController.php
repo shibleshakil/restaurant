@@ -35,10 +35,7 @@ class RestaurantpageController extends Controller
                         unlink($tmpImg);
                     }
                 }
-
                 $data->title = $request->title;
-
-
                 $data->save();
                 DB::commit();
                 return back()->with('success', 'Data updated successfully!');

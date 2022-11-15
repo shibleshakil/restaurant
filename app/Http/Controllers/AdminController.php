@@ -6,27 +6,15 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public $name;
-    public function manage(Request $request){
 
-        return view('admin.managesite');
-    }
-    public function adminHome(){
-        return view('admin.homepage');
-    }
-    public function restaurantPage(){
-        return view('admin.restaurantpage');
-    }
-    public function aboutPage(){
-        return view('admin.aboutpage');
-    }
-    public function contactPage(){
-        return view('admin.contactpage');
-    }
-    public function bookingPage(){
-        return view('admin.bookingpage');
-    }
     public function viewPdf(){
         return view('admin.setup.menu.view_pdf');
     }
+    public function editProfile(){
+        return view('admin.profile.edit');
+    }
+    public function changePassword(){
+        return view('admin.profile.change-password');
+    }
+
 }

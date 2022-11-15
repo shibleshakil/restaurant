@@ -19,8 +19,8 @@
 <body>
 
 
-    <div class="container py-md-3 bg-success ">
-        <div class="row py-md-3">
+    <div class="container py-md-3 ">
+        <div class="row py-md-3 bg-light">
             <div class="col-md-3 text-center">
                 <img src="{{asset('img/logo.jpg')}}" height="50px" alt="" class="img-fluid">
             </div>
@@ -30,13 +30,13 @@
             </div>
         </div>
         <div class="menu" >
-            <div class="row bg-light">
+            <div class="row ">
                 <div class="col-12 text-capitalize text-center">
                     <h4 class="fw-semibold">Breakfast</h4>
                 </div>
             </div>
-            <div class="row py-md-3" style="background: linear-gradient(#ffffff, #ffffff) no-repeat center/2px 100%; z-index: 1!important; position: relative">
-                <div class="col-md-6 bg-danger">
+            <div class="row py-md-3">
+                <div class="col-md-6 bg-light ">
                     <div class="row py-1">
                         <div class="col-3">
                             <img src="{{asset('uploads/image/1666163556image.jpg')}}" alt="" class="img-fluid">
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 bg-danger">
+                <div class="col-md-6 bg-light">
                     <div class="row py-1">
                         <div class="col-3">
                             <img src="{{asset('uploads/image/1666163556image.jpg')}}" alt="" class="img-fluid">
@@ -114,7 +114,7 @@
                 </div>
             </div>
             <div class="row py-md-3" style="background: linear-gradient(#ffffff, #ffffff) no-repeat center/2px 100%; z-index: 1!important; position: relative">
-                <div class="col-md-6 bg-danger">
+                <div class="col-md-6 bg-light">
                     <div class="row py-1">
                         <div class="col-3">
                             <img src="{{asset('uploads/image/1666163556image.jpg')}}" alt="" class="img-fluid">
@@ -152,7 +152,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 bg-danger">
+                <div class="col-md-6 bg-light">
                     <div class="row py-1">
                         <div class="col-3">
                             <img src="{{asset('uploads/image/1666163556image.jpg')}}" alt="" class="img-fluid">
@@ -194,13 +194,13 @@
         </div>
 
         <div class="menu">
-            <div class="row bg-light">
+            <div class="row">
                 <div class="col-12 text-capitalize text-center">
                     <h4 class="fw-semibold">Lunch</h4>
                 </div>
             </div>
             <div class="row py-md-3" style="background: linear-gradient(#ffffff, #ffffff) no-repeat center/2px 100%; z-index: 1!important; position: relative">
-                <div class="col-md-6 bg-danger">
+                <div class="col-md-6 bg-light">
                     <div class="row py-1">
                         <div class="col-3">
                             <img src="{{asset('uploads/image/1666163556image.jpg')}}" alt="" class="img-fluid">
@@ -238,7 +238,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 bg-danger">
+                <div class="col-md-6 bg-light">
                     <div class="row py-1">
                         <div class="col-3">
                             <img src="{{asset('uploads/image/1666163556image.jpg')}}" alt="" class="img-fluid">
@@ -278,7 +278,7 @@
                 </div>
             </div>
             <div class="row py-md-3" style="background: linear-gradient(#ffffff, #ffffff) no-repeat center/2px 100%; z-index: 1!important; position: relative">
-                <div class="col-md-6 bg-danger">
+                <div class="col-md-6 bg-light">
                     <div class="row py-1">
                         <div class="col-3">
                             <img src="{{asset('uploads/image/1666163556image.jpg')}}" alt="" class="img-fluid">
@@ -316,7 +316,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 bg-danger">
+                <div class="col-md-6 bg-light">
                     <div class="row py-1">
                         <div class="col-3">
                             <img src="{{asset('uploads/image/1666163556image.jpg')}}" alt="" class="img-fluid">
