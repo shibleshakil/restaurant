@@ -145,7 +145,10 @@ class WebController extends Controller
                     'name' =>$data->first_name,
                     'phone' => $data->phone_number,
                     'email' => $data->email,
+                    'date' => $data->date,
+                    'preferred_time' => $data->preferred_time,
                     'no_of_guest' => $data->no_of_guest,
+                    'special_request' => $data->special_request,
                     'orderDetails' => $orderDetails,
                     'quantity' => $quantity,
                 ]; // Empty array
