@@ -29,7 +29,7 @@
                     <li class="dropdown dropdown-user nav-item">
                         <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                             <div class="avatar avatar-online">
-                                <img src="{{ asset('uploads/image/'.Auth()->user()->user_img)}}"
+                                <img src="{{Auth()->user()->user_img ? asset('uploads/image/'.Auth()->user()->user_img) : asset('backend/images/avatar.jpg')}}"
                                     alt="avatar"><i></i>
                             </div>
                             <span class="user-name">{{Auth()->user()->name}}</span>
