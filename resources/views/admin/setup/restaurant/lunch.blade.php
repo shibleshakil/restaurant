@@ -96,6 +96,15 @@ Restaurant Lunch Menu
                                                 <input type="number" id="price" class="form-control"
                                                     placeholder="Item Price" name="price" value="">
                                             </div>
+                                            <div class="form-group col-md-4 ">
+                                                <label for="price">Image</label>
+                                                <input type="file" name="image" id="image" class="form-control">
+                                            </div>
+                                            <div class="form-group col-md-4 ">
+                                                <label for="description">Description</label>
+                                                <textarea type="text" id="description" class="form-control" placeholder="Description"
+                                                name="description"></textarea>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -123,6 +132,8 @@ Restaurant Lunch Menu
                                             <th>Sl</th>
                                             <th>Item</th>
                                             <th>Price</th>
+                                            <th>Image</th>
+                                            <th>Description</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -133,10 +144,12 @@ Restaurant Lunch Menu
                                             <td>{{++$sl}}</td>
                                             <td>{{$item->item}}</td>
                                             <td>{{$item->price}}</td>
+                                            <td><img src="{{ asset('uploads/image/'.$item->image)}}" width="120px" height="80px" alt=""></td>
+                                            <td>{{mb_strimwidth($item->description, 0, 97, '...')}}</td>
                                             <td>
                                                 <a data-toggle="modal" data-target="#editItem"
                                                     data-target-id="{{$item->id}}" data-item="{{$item->item}}"
-                                                    data-price="{{$item->price}}">
+                                                    data-price="{{$item->price}}" data-description="{{$item->description}}">
                                                     <button type="button" title="Edit"
                                                         class="btn btn-icon btn-outline-primary btn-sm">
                                                         <i class="fa fa-pencil-square"></i></button>
@@ -184,6 +197,14 @@ Restaurant Lunch Menu
                                 <input type="number" name="price" class="form-control" id="eprice"
                                     placeholder="Item Price" required>
                             </fieldset>
+                                <fieldset class="form-group floating-label-form-group">
+                                    <label for="eiamge">Change Image</label>
+                                    <input type="file" name="image" id="eimage" class="form-control">
+                                </fieldset>
+                                <fieldset class="form-group floating-label-form-group">
+                                    <label for="edescription">Description</label>
+                                    <textarea type="text" id="edescription" class="form-control" placeholder="Description" name="description"></textarea>
+                                </fieldset>
                         </div>
                         <div class="modal-footer">
                             <input type="reset" class="btn btn-outline-secondary" data-dismiss="modal" value="Close">
@@ -204,10 +225,12 @@ $("#editItem").on("show.bs.modal", function(e) {
     var id = $(e.relatedTarget).data('target-id');
     var item = $(e.relatedTarget).data('item');
     var price = $(e.relatedTarget).data('price');
+    var description = $(e.relatedTarget).data('description');
 
     $('.modal-body #id').val(id);
     $('.modal-body #eitem').val(item);
     $('.modal-body #eprice').val(price);
+    $('.modal-body #edescription').val(description);
 
 });
 

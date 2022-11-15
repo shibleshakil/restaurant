@@ -18,6 +18,7 @@ Route::get('/', [WebController::class, 'index'])->name('home');
 Route::get('/menus', [WebController::class, 'menus'])->name('menus');
 Route::get('/restaurants', [WebController::class, 'restaurant'])->name('restaurantList');
 Route::get('/restaurants/{slug}', [WebController::class, 'restaurantDetail'])->name('restaurantDetail');
+Route::get('/restaurants/{slug}/menu', [WebController::class, 'restaurantMenu'])->name('restaurantMenu');
 Route::get('/contact', [WebController::class, 'contact'])->name('contact');
 Route::get('/about', [WebController::class, 'about'])->name('about');
 Route::get('/booking', [WebController::class, 'booking'])->name('booking');
