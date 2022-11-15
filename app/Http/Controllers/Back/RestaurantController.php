@@ -143,6 +143,22 @@ class RestaurantController extends Controller
                 $data->restaurant_id = $id;
                 $data->item = $request->item;
                 $data->price = $request->price;
+                $data->description = $request->description;
+                if($request->file('image')){
+                    $image = $request->file('image');
+                    $input = time() . 'image.' . $image->getClientOriginalExtension();
+                    $destinationPath = public_path('uploads/image');
+                    $img = Image::make($image->getRealPath());
+                    $img->orientate();
+                    $img->resize(180, 120)->save($destinationPath.'/'.$input);
+                    $destinationPath = public_path('/thumbnail');
+                    $image->move($destinationPath,$input);
+                    $data->image = $input;
+                    $tmpImg = public_path('thumbnail/'.$input);
+                    if (file_exists($tmpImg)) {
+                        unlink($tmpImg);
+                    }
+                }
                 $data->save();
                 DB::commit();
                 return back()->with('success', 'New Lunch Item Added Successfully!');
@@ -163,6 +179,22 @@ class RestaurantController extends Controller
         try {
             $data->item = $request->item;
             $data->price = $request->price;
+            $data->description = $request->description;
+            if($request->file('image')){
+                $image = $request->file('image');
+                $input = time() . 'image.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('uploads/image');
+                $img = Image::make($image->getRealPath());
+                $img->orientate();
+                $img->resize(180, 120)->save($destinationPath.'/'.$input);
+                $destinationPath = public_path('/thumbnail');
+                $image->move($destinationPath,$input);
+                $data->image = $input;
+                $tmpImg = public_path('thumbnail/'.$input);
+                if (file_exists($tmpImg)) {
+                    unlink($tmpImg);
+                }
+            }
             $data->save();
             DB::commit();
             return back()->with('success', 'Lunch Item Updated Successfully!');
@@ -194,6 +226,22 @@ class RestaurantController extends Controller
                 $data->restaurant_id = $id;
                 $data->item = $request->item;
                 $data->price = $request->price;
+                $data->description = $request->description;
+                if($request->file('image')){
+                    $image = $request->file('image');
+                    $input = time() . 'image.' . $image->getClientOriginalExtension();
+                    $destinationPath = public_path('uploads/image');
+                    $img = Image::make($image->getRealPath());
+                    $img->orientate();
+                    $img->resize(180, 120)->save($destinationPath.'/'.$input);
+                    $destinationPath = public_path('/thumbnail');
+                    $image->move($destinationPath,$input);
+                    $data->image = $input;
+                    $tmpImg = public_path('thumbnail/'.$input);
+                    if (file_exists($tmpImg)) {
+                        unlink($tmpImg);
+                    }
+                }
                 $data->save();
                 DB::commit();
                 return back()->with('success', 'New Lunch Item Added Successfully!');
@@ -213,6 +261,22 @@ class RestaurantController extends Controller
         try {
             $data->item = $request->item;
             $data->price = $request->price;
+            $data->description = $request->description;
+            if($request->file('image')){
+                $image = $request->file('image');
+                $input = time() . 'image.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('uploads/image');
+                $img = Image::make($image->getRealPath());
+                $img->orientate();
+                $img->resize(180, 120)->save($destinationPath.'/'.$input);
+                $destinationPath = public_path('/thumbnail');
+                $image->move($destinationPath,$input);
+                $data->image = $input;
+                $tmpImg = public_path('thumbnail/'.$input);
+                if (file_exists($tmpImg)) {
+                    unlink($tmpImg);
+                }
+            }
             $data->save();
             DB::commit();
             return back()->with('success', 'Dinner Item Updated Successfully!');

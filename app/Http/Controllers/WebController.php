@@ -19,6 +19,7 @@ use App\Models\MenuCategory;
 use App\Models\MenuSubCategory;
 use App\Models\Menu;
 use App\Models\Booking;
+use PDF;
 
 use Session;
 use DB;
@@ -163,5 +164,23 @@ class WebController extends Controller
         }
     }
 
-
+    public function restaurantMenu($slug){
+        $data = Restaurant::where('slug', $slug)->first();
+        if (!$data) {
+            abort(404);
+        }
+        $menusCategories = MenuSubCategory::where('is_active', 1)->orderBy('name')->get();
+        $subCat = array();
+        foreach ($menusCategories as $key => $value) {
+            array_push($subCat, $value->id);
+        }
+        $menus = Menu::where('restaurant_id', $data->id)->orWhereNull('restaurant_id')->get();
+        $lunchItems = LunchMenu::where('restaurant_id', $data->id)->get();
+        $dinnerItems = DinnerMenu::where('restaurant_id', $data->id)->get();
+    
+        // $pdf = PDF::loadView('front.restaurant_menu', compact('data', 'menusCategories', 'subCat', 'menus', 'lunchItems', 'dinnerItems'))->setOptions(['defaultFont' => 'sans-serif']);
+        // $fileName = $data->name . '_menu.pdf';
+        // return $pdf->download($fileName);
+        return view('front.restaurant_menu', compact('data', 'menusCategories', 'subCat', 'menus', 'lunchItems', 'dinnerItems'));
+    }
 }

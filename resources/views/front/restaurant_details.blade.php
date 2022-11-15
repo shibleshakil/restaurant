@@ -77,15 +77,16 @@
                 <p>
                     @if (sizeof ($lunchItems) > 0 )
                     @foreach ($lunchItems as $litem)
-                    {{$litem->item}} for £{{$litem->price}} <br>
+                    {{$litem->item}} for ৳{{$litem->price}} <br>
                     @endforeach
                     @endif
                     Monday to Sunday {{date('h:ia', strtotime($data->open_at))}} -
                     {{date('h:ia', strtotime($data->close_at))}}
                 </p>
                 <div class="col-md-3 py-md-3 mx-auto">
-                    <a href="{{asset ('uploads/image/'.$data->menu_card) }}" target="_blank" rel="noopener noreferrer"
-                        class="btn-rounded w-100">View Menu</a>
+                    <a href="{{ route ('restaurantMenu', [$data->slug]) }}" target="_blank" rel="noopener noreferrer" class="btn-rounded w-100">View Menu</a>
+                    <!-- <a href="{{asset ('uploads/image/'.$data->menu_card) }}" target="_blank" rel="noopener noreferrer"
+                        class="btn-rounded w-100">View Menu</a> -->
                 </div>
             </div>
         </div>
