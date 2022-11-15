@@ -44,6 +44,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 //    Route::get('/bookingpage', [AdminController::class, 'bookingPage'])->name('bookingpage');
 
     Route::get('/view_pdf', [AdminController::class, 'viewPdf'])->name('view_pdf');
+//    Route::get('/edit_profile', [AdminController::class, 'editProfile'])->name('edit_profile');
+//    Route::get('/update_profile', [AdminController::class, 'updateProfile'])->name('update_profile');
+//    Route::get('/change_password', [AdminController::class, 'changePassword'])->name('change_password');
+//    Route::get('/update_password', [AdminController::class, 'updatePassword'])->name('update_password');
 
     Route::match(['get', 'post'], 'managewebsite', 'App\Http\Controllers\Back\Setup\SettingsController@appItemUpdate')->name('managewebsite');
 
@@ -59,8 +63,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     Route::match(['get', 'post'], 'managebookingpage', 'App\Http\Controllers\BookingpageController@bookingpageUpdate')->name('managebookingpage');
 
+    Route::match(['get', 'post'], 'profile/{name}', 'App\Http\Controllers\UserController@profileUpdate')->name('profileUpdate');
 
-    Route::resource('area', 'App\Http\Controllers\Back\AreaController')->parameters('area','id') ;
+    Route::match(['get', 'post'], 'change-password/{name}', 'App\Http\Controllers\UserController@passwordUpdate')->name('changePassword');
+
+
 
     Route::match(['get', 'post'], 'restaurant/{id}/lunch/menu', 'App\Http\Controllers\Back\RestaurantController@lunch')->name('restaurant.lunch');
     Route::match(['get', 'post'], 'restaurant/{id}/dinner/menu', 'App\Http\Controllers\Back\RestaurantController@dinner')->name('restaurant.dinner');
@@ -79,17 +86,22 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::delete('restaurant/{id}', 'App\Http\Controllers\Back\RestaurantController@delete')->name('restaurant.delete');
     Route::resource('restaurant', 'App\Http\Controllers\Back\RestaurantController')->parameters('restaurant','id') ;
     Route::post('restaurant/{id}/update', 'App\Http\Controllers\Back\RestaurantController@update')->name('restaurant.update');
-    
+
+    Route::delete('area/{id}', 'App\Http\Controllers\Back\AreaController@delete')->name('area.delete');
+    Route::put('area/{id}', 'App\Http\Controllers\Back\AreaController@restore')->name('area.restore');
+    Route::resource('area', 'App\Http\Controllers\Back\AreaController')->parameters('area','id') ;
+    Route::post('area/{id}/update', 'App\Http\Controllers\Back\AreaController@update')->name('area.update');
+
     Route::delete('menuCategory/{id}', 'App\Http\Controllers\Back\Setup\MenuCategoryController@delete')->name('menuCategory.delete');
     Route::put('menuCategory/{id}', 'App\Http\Controllers\Back\Setup\MenuCategoryController@restore')->name('menuCategory.restore');
     Route::resource('menuCategory', 'App\Http\Controllers\Back\Setup\MenuCategoryController')->parameters('menuCategory', 'id');
     Route::post('menuCategory/update', 'App\Http\Controllers\Back\Setup\MenuCategoryController@update')->name('menuCategory.update');
-    
+
     Route::delete('menuSubCategory/{id}', 'App\Http\Controllers\Back\Setup\MenuSubCategoryController@delete')->name('menuSubCategory.delete');
     Route::put('menuSubCategory/{id}', 'App\Http\Controllers\Back\Setup\MenuSubCategoryController@restore')->name('menuSubCategory.restore');
     Route::resource('menuSubCategory', 'App\Http\Controllers\Back\Setup\MenuSubCategoryController')->parameters('menuSubCategory', 'id');
     Route::post('menuSubCategory/update', 'App\Http\Controllers\Back\Setup\MenuSubCategoryController@update')->name('menuSubCategory.update');
-    
+
     Route::delete('menu/{id}', 'App\Http\Controllers\Back\Setup\MenuController@delete')->name('menu.delete');
     Route::put('menu/{id}', 'App\Http\Controllers\Back\Setup\MenuController@restore')->name('menu.restore');
     Route::resource('menu', 'App\Http\Controllers\Back\Setup\MenuController')->parameters('menu', 'id');

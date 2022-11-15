@@ -86,7 +86,7 @@ class MenuController extends Controller
             DB::commit();
 
             return back()->with('success', 'New Menu Created Successfully');
-            
+
         } catch (\Throwable $th) {
             DB::rollback();
             return back()->with('error', 'Somethings went wrong. Try Again');
@@ -164,7 +164,7 @@ class MenuController extends Controller
             DB::commit();
 
             return back()->with('success', 'Menu Updated Successfully');
-            
+
         } catch (\Throwable $th) {
             DB::rollback();
             return back()->with('error', $th->getMessage());
@@ -190,7 +190,7 @@ class MenuController extends Controller
             return 'Menu Inactive Successfully!';
         } catch (\Throwable $th) {
             DB::rollback();
-            return 'Somrthings Went Wrong!';
+            return 'Somethings Went Wrong!';
         }
     }
 
@@ -205,7 +205,7 @@ class MenuController extends Controller
             return 'Menu Activated Successfully!';
         } catch (\Throwable $th) {
             DB::rollback();
-            return 'Somrthings Went Wrong!';
+            return 'Somethings Went Wrong!';
         }
     }
 }

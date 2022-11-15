@@ -7,7 +7,7 @@
                             class="feather icon-menu font-large-1"></i></a></li>
                 <li class="nav-item">
                     <a class="navbar-brand logo-div" href="{{ route ('dashboard') }}">
-                        <img class="brand-logo logo" alt="stack admin logo" src="{{ $gsetting->logo ? asset ('uploads/image/'. $gsetting->logo) : 
+                        <img class="brand-logo logo" alt="stack admin logo" src="{{ $gsetting->logo ? asset ('uploads/image/'. $gsetting->logo) :
                         asset ('backend/images/logo/stack-logo-light-big.png')}}" id="mainLogo">
                     </a>
                 </li>
@@ -29,13 +29,15 @@
                     <li class="dropdown dropdown-user nav-item">
                         <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                             <div class="avatar avatar-online">
-                                <img src="{{asset('/backend/images/portrait/small/avatar-s-1.png')}}"
+                                <img src="{{ asset('uploads/image/'.Auth()->user()->user_img)}}"
                                     alt="avatar"><i></i>
                             </div>
                             <span class="user-name">{{Auth()->user()->name}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#"><i class="feather icon-user"></i> Edit Profile</a>
+                            <a class="dropdown-item" href="{{route('profileUpdate', [Auth()->user()->name])}}"><i class="feather icon-user"></i>Edit Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{route('changePassword', [Auth()->user()->name])}}"><i class="feather icon-codepen"></i>Change Password</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{route('logout')}}"><i class="feather icon-power"></i>
                                 Logout</a>

@@ -33,7 +33,7 @@ Area
                     </ul>
                 </div>
             @endif
-            
+
             @if (session('success'))
                 <div class="alert alert-success" role="alert">
                     {{ session('success') }}
@@ -71,19 +71,19 @@ Area
                                                             <td>{{$data->details}}</td>
                                                             {{-- <td>{{$data->restaurant_id ? $data->restaurant->name : ''}}</td> --}}
                                                             <td>
-                                                                
+
                                                                 @if($data->is_active == 1)
-                                                                    <a href="{{ route ('systemUser.edit', ['systemUser'=>$data->id])}}">
+                                                                    <a href="{{ route ('area.edit', $data->id)}}">
                                                                         <button type="button" title="Edit" class="btn btn-icon btn-outline-primary btn-sm">
                                                                         <i class="fa fa-pencil-square"></i></button>
                                                                     </a>
-                                                                    <button type="button" class="btn btn-icon btn-outline-danger btn-sm" title="Inactive" 
-                                                                        onclick="deleteData('{{ route('menu.delete', [$data->id]) }}')">
+                                                                    <button type="button" class="btn btn-icon btn-outline-danger btn-sm" title="Inactive"
+                                                                            onclick="deleteData('{{ route('area.delete', [$data->id]) }}')">
                                                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                                                     </button>
                                                                 @else
-                                                                    <button type="button" class="btn btn-icon btn-outline-primary btn-sm" title="Restore" 
-                                                                        onclick="restoreData('{{ route('menu.restore', [$data->id]) }}')">
+                                                                    <button type="button" class="btn btn-icon btn-outline-primary btn-sm" title="Restore"
+                                                                        onclick="restoreData('{{ route('area.restore', [$data->id]) }}')">
                                                                         <i class="fa fa-undo" aria-hidden="true"></i>
                                                                     </button>
                                                                 @endif
@@ -93,7 +93,7 @@ Area
                                                 @endif
                                             </tbody>
                                             <tfoot class="display-hidden">
-                                            
+
                                             </tfoot>
                                         </table>
                                     </div>
