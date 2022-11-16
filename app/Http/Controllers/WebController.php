@@ -183,7 +183,16 @@ class WebController extends Controller
     
         // $pdf = PDF::loadView('front.restaurant_menu', compact('data', 'menusCategories', 'subCat', 'menus', 'lunchItems', 'dinnerItems'))->setOptions(['defaultFont' => 'sans-serif']);
         // $fileName = $data->name . '_menu.pdf';
-        // return $pdf->download($fileName);
-        return view('front.restaurant_menu', compact('data', 'menusCategories', 'subCat', 'menus', 'lunchItems', 'dinnerItems'));
+        return view('front.pdf_menu', compact('data', 'menusCategories', 'subCat', 'menus', 'lunchItems', 'dinnerItems'));
+        // return view('front.restaurant_menu', compact('data', 'menusCategories', 'subCat', 'menus', 'lunchItems', 'dinnerItems'));
+        
+        $pdf = PDF::loadView('front.pdf_menu', compact('data', 'menusCategories', 'subCat', 'menus', 'lunchItems', 'dinnerItems'));
+        $path = public_path('uploads/pdf/');
+        $fileName =  $data->name.'.'. 'pdf' ;
+        return $pdf->download($fileName);
+        $pdf->save($path . '/' . $fileName);
+
+        $pdf = public_path('uploads/pdf/'.$fileName);
+        return response()->download($pdf);
     }
 }
