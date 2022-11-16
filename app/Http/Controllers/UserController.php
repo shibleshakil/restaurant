@@ -8,6 +8,7 @@ use Image;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Auth;
+//use Session;
 
 class UserController extends Controller
 {
@@ -53,9 +54,22 @@ class UserController extends Controller
 
             DB::beginTransaction();
             try{
-                $data = User::find(Auth()->user()->id);
-                $data->password = Hash::make($request->password);
-                $data->save();
+//                $data = User::find(Auth()->user()->id);
+//                Session::put('password', $request->password);
+//                $request->session()->put('password', $request->password);
+                auth()->user()->update(['password' => Hash::make($request->password) ]);
+                if ($request->session()->has('password_hash_web')) {
+                    $user = auth('web')->getUser();
+                    $request->session()->forget('password_hash_web');
+                    Auth::guard('web')->login($user);
+
+                }
+
+
+//                $data->password = Hash::make($request->password);
+
+
+//                $data->save();
                 DB::commit();
                 return back()->with('success', 'Data updated successfully!');
             } catch (Throwable $th) {
