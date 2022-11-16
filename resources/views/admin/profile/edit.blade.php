@@ -51,9 +51,9 @@
                                         @csrf
                                         <h4 class="form-section">Edit User Profile</h4>
                                         <div class="row align-items-center d-block">
-                                            @if($data && $data->user_img)
+                                            @if($data && Auth()->user()->user_img)
                                             <div class="form-group col-md-6 mb-2 mx-auto">
-                                                <img src="{{ asset('uploads/image/'.$data->user_img)}}" alt="users avatar" width="120px" height="100px" 
+                                                <img src="{{ asset('uploads/image/'.Auth()->user()->user_img)}}" alt="users avatar" width="120px" height="100px"
                                                 class="users-avatar-shadow rounded-circle">
                                             </div>
                                             @endif
@@ -63,15 +63,15 @@
                                             </div>
                                             <div class="form-group col-md-6 mb-2 mx-auto">
                                                 <label for="name">User Name</label>
-                                                <input type="text" id="name" class="form-control" placeholder="Jane Doe" name="name" value="{{$data ? $data->name : ''}}">
+                                                <input type="text" id="name" class="form-control" placeholder="Jane Doe" name="name" value="{{$data ? Auth()->user()->name : ''}}">
                                             </div>
                                             <div class="form-group col-md-6 mb-2 mx-auto">
                                                 <label for="email">Email</label>
-                                                <input type="email" id="email" class="form-control" placeholder="janedoe@example.com" name="email" value="{{$data ? $data->email : ''}}" readonly>
+                                                <input type="email" id="email" class="form-control" placeholder="janedoe@example.com" name="email" value="{{$data ? Auth()->user()->email : ''}}" readonly>
                                             </div>
                                             <div class="form-group col-md-6 mb-2 mx-auto">
                                                 <label for="phone">Phone No.</label>
-                                                <input type="text" id="phone" class="form-control" placeholder="0185655696" name="phone" value="{{$data ? $data->phone : ''}}">
+                                                <input type="text" id="phone" class="form-control" placeholder="0185655696" name="phone" value="{{$data ? Auth()->user()->phone : ''}}">
                                             </div>
 
                                             <div class="form-group col-md-6 mb-2 mx-auto text-right">

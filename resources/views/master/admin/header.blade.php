@@ -39,8 +39,11 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{route('changePassword', [Auth()->user()->name])}}"><i class="feather icon-codepen"></i>Change Password</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{route('logout')}}"><i class="feather icon-power"></i>
-                                Logout</a>
+                            <a class="dropdown-item text-danger" href="#" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
+                                <i class="feather icon-power text-danger"></i> Logout</a>
+                            <form action="{{route('logout')}}" method="POST" id="logoutform">
+                                @csrf
+                            </form>
                         </div>
                     </li>
                 </ul>
