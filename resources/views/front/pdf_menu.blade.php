@@ -5,30 +5,53 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{$data->name}} - Menu</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" 
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <style>
         * {
             box-sizing: border-box;
                 font-size: 14px;
         }
-        
-        body{
-            background: #fff;
-            font-size:14px;
-            font-family:sans-serif;
-            line-height: 1;
+        @page {
+            margin: 0cm 0cm;
         }
-        /* @font-face {
-            font-family: 'Tahoma';
-            src: url({{ storage_path('fonts\Tahoma_Regular_font.ttf') }}) format("truetype");
-            font-weight: 400; // use the matching font-weight here ( 100, 200, 300, 400, etc).
-            font-style: normal; // use the matching font-style here
-        }
-        body{
-            font-size:9px;
-            font-family: Tahoma !important;
-            line-height: 1;
-        } */
 
+        /** Define now the real margins of every page in the PDF **/
+        body {
+            margin-top: 2cm;
+            margin-left: 2cm;
+            margin-right: 2cm;
+            margin-bottom: 2cm;
+        }
+
+        /** Define the header rules **/
+        header {
+            position: fixed;
+            top: 0cm;
+            left: 0cm;
+            right: 0cm;
+            height: auto;
+
+            /** Extra personal styles **/
+            /* background-color: #03a9f4; */
+            color: #000;
+            text-align: center;
+            /* line-height: 1.5cm; */
+        }
+        /** Define the footer rules **/
+        footer {
+            position: fixed; 
+            bottom: 0cm; 
+            left: 0cm; 
+            right: 0cm;
+            height: 1cm;
+
+            /** Extra personal styles **/
+            /* background-color: #03a9f4; */
+            color: #000;
+            text-align: center;
+            /* line-height: 1.5cm; */
+        }
         /* Create three unequal columns that floats next to each other */
         .column {
             float: left;
@@ -94,19 +117,22 @@
             float: left;
             width: 10%;
         }
+        .col-md-6 {
+            -ms-flex: 0 0 50%; flex: 0 0 50%; max-width: 50%;
+        }
 
         .info td{
             vertical-align:middle !important;
         }
         .menu-table td{
-            vertical-align:top !important;
+            vertical-align:middle !important;
         }
         @media print{@page {size: landscape}}
     </style>
 </head>
 <body>
-    <div class="main">
-        <table style="margin-bottom:15px; width:100%" class="b-none info text-center">
+    <header>
+        <table style="margin-bottom:20px; width:100%" class="b-none info text-center">
             <tbody>
                 <tr>
                     <td width="30%" class="b-none">
@@ -123,11 +149,16 @@
                 </tr>
             </tbody>
         </table>
+    </header>
+
+    <footer>
+    </footer>
+    <main>
         <div class="row">
             @if (sizeof ($menusCategories) > 0)
                 @foreach ($menusCategories as $mcat)
                     @if (sizeof($menus->where('menu_sub_category_id', $mcat->id))> 0)
-                        <div class="column">
+                        <div class="col-md-12">
                             <p style="text-align:center; font-size:16px; font-weight: bold; margin:10px 0px;">{{$mcat->name}}</p>
                             <table style="width:100%" class="b-none menu-table">
                                 <tbody>
@@ -152,7 +183,7 @@
 
         <div class="row">
             @if (sizeof ($lunchItems) > 0)
-                <div class="column">
+                <div class="col-md-12">
                     <p style="text-align:center; font-size:16px; font-weight: bold; margin:10px 0px;">Lunch Special</p>
                     <table style="width:100%" class="b-none menu-table">
                         <tbody>
@@ -172,7 +203,7 @@
                 </div>
             @endif
             @if (sizeof ($dinnerItems) > 0)
-                <div class="column">
+                <div class="col-md-12">
                     <p style="text-align:center; font-size:16px; font-weight: bold; margin:10px 0px;">Dinner Special</p>
                     <table style="width:100%" class="b-none menu-table">
                         <tbody>
@@ -192,7 +223,7 @@
                 </div>
             @endif
         </div>
-    </div>
+    </main>
     <script src="{{asset('/js/jquery-3.6.1.min.js')}}"></script>
 </body>
 </html>

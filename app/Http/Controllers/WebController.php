@@ -183,7 +183,7 @@ class WebController extends Controller
 
         // return view('front.pdf_menu', compact('data', 'menusCategories', 'subCat', 'menus', 'lunchItems', 'dinnerItems'));
         
-        $pdf = PDF::loadView('front.pdf_menu', compact('data', 'menusCategories', 'subCat', 'menus', 'lunchItems', 'dinnerItems'))->setPaper('a4', 'landscape');
+        $pdf = PDF::loadView('front.pdf_menu', compact('data', 'menusCategories', 'subCat', 'menus', 'lunchItems', 'dinnerItems'));
         $fileName =  $data->name.'-menu.'. 'pdf' ;
         return $pdf->download($fileName);
     }
