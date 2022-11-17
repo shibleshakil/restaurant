@@ -195,4 +195,11 @@ class WebController extends Controller
         $pdf = public_path('uploads/pdf/'.$fileName);
         return response()->download($pdf);
     }
+    
+    public function staticMenu(){
+
+        $pdf = PDF::loadView('front.staticPDF');
+        return $pdf->stream('invoice.pdf');
+    }
+
 }
