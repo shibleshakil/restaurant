@@ -19,6 +19,8 @@ use App\Models\MenuCategory;
 use App\Models\MenuSubCategory;
 use App\Models\Menu;
 use App\Models\Booking;
+use App\Models\Facility;
+use App\Models\Parking;
 use PDF;
 
 use Session;
@@ -71,7 +73,9 @@ class WebController extends Controller
         $bookingSetting = Bookingpage::findorFail(1);
         $restaurants = Restaurant::where('is_active', 1)->orderBy('name')->get();
         $lunchItems = LunchMenu::where('restaurant_id', $data->id)->inRandomOrder()->limit(2)->get();
-        return view('front.restaurant_details', compact('restaurants', 'bookingSetting', 'data', 'lunchItems', 'menus'));
+        $facilities = Facility::where('restaurant_id', $data->id)->get()->reverse();
+        $parkings = Parking::where('restaurant_id', $data->id)->get()->reverse();
+        return view('front.restaurant_details', compact('restaurants', 'bookingSetting', 'data', 'lunchItems', 'menus', 'facilities', 'parkings'));
     }
 
     public function reserveSelectedTime(Request $request){
