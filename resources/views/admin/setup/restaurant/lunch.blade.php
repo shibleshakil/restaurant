@@ -88,13 +88,13 @@ Restaurant Lunch Menu
                                             <div class="form-group col-md-4 ">
                                                 <label for="item">Item Name</label>
                                                 <input type="text" id="item" class="form-control"
-                                                    placeholder="Item Name" name="item" value="">
+                                                    placeholder="Item Name" name="item" value="" required>
                                             </div>
 
                                             <div class="form-group col-md-4 ">
                                                 <label for="price">Item Price</label>
                                                 <input type="number" id="price" class="form-control"
-                                                    placeholder="Item Price" name="price" value="">
+                                                    placeholder="Item Price" name="price" value="" required>
                                             </div>
                                             <div class="form-group col-md-4 ">
                                                 <label for="price">Image</label>
