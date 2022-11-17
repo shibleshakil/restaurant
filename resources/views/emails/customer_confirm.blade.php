@@ -43,8 +43,8 @@
     </tbody>
 </table>
 <p><span style="font-weight: bold">Your Special Request:</span> {{$emailData['special_request']}}</p>
-<p style="font-style: italic;">Note: If you have any feedback you can reach us via email: {{$restaurantInfo->email}}, 
-@if ($restaurantInfo->contact_number) or phone: $restaurantInfo->contact_number @endif </p>
+<p style="font-style: italic;">Note: If you have any feedback you can reach us via email: {{$emailData['restaurantInfo']['email']}}, 
+@if ($emailData['restaurantInfo']['contact_number']) or phone: {{$emailData['restaurantInfo']['contact_number']}} @endif </p>
 <p style="">Have A Good Day</p> 
 <h3>Regards</h3>
-<p> <strong>{{$restaurantInfo->name}}</strong> <br> {{$restaurantInfo->address}}</p>
+<p> <strong>{{$emailData['restaurantInfo']['name']}}</strong> <br> {{$emailData['restaurantInfo']['address']}}</p>
