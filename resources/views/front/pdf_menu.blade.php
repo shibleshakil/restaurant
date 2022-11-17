@@ -195,7 +195,4 @@
     </div>
     <script src="{{asset('/js/jquery-3.6.1.min.js')}}"></script>
 </body>
-        <script>
-            window.print();
-        </script>
 </html>

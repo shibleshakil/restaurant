@@ -180,19 +180,11 @@ class WebController extends Controller
         $menus = Menu::where('restaurant_id', $data->id)->orWhereNull('restaurant_id')->get();
         $lunchItems = LunchMenu::where('restaurant_id', $data->id)->get();
         $dinnerItems = DinnerMenu::where('restaurant_id', $data->id)->get();
-    
-        // $pdf = PDF::loadView('front.restaurant_menu', compact('data', 'menusCategories', 'subCat', 'menus', 'lunchItems', 'dinnerItems'))->setOptions(['defaultFont' => 'sans-serif']);
-        // $fileName = $data->name . '_menu.pdf';
-        return view('front.pdf_menu', compact('data', 'menusCategories', 'subCat', 'menus', 'lunchItems', 'dinnerItems'));
-        // return view('front.restaurant_menu', compact('data', 'menusCategories', 'subCat', 'menus', 'lunchItems', 'dinnerItems'));
-        
-        $pdf = PDF::loadView('front.pdf_menu', compact('data', 'menusCategories', 'subCat', 'menus', 'lunchItems', 'dinnerItems'));
-        $path = public_path('uploads/pdf/');
-        $fileName =  $data->name.'.'. 'pdf' ;
-        return $pdf->download($fileName);
-        $pdf->save($path . '/' . $fileName);
 
-        $pdf = public_path('uploads/pdf/'.$fileName);
-        return response()->download($pdf);
+        // return view('front.pdf_menu', compact('data', 'menusCategories', 'subCat', 'menus', 'lunchItems', 'dinnerItems'));
+        
+        $pdf = PDF::loadView('front.pdf_menu', compact('data', 'menusCategories', 'subCat', 'menus', 'lunchItems', 'dinnerItems'))->setPaper('a4', 'landscape');
+        $fileName =  $data->name.'-menu.'. 'pdf' ;
+        return $pdf->download($fileName);
     }
 }
