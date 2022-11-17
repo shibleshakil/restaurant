@@ -1,9 +1,13 @@
-<p style="margin-bottom:20px; text-align:center;"><strong>Order Details</strong></p>
+    
+<p>Your Order Has Been Confirmed</p>
+<h3 style="font-weight: bold">Thank You Sir For Choosing our Restaurant</h3>
+
+<p style="margin-bottom:20px; text-align:center;"><strong>Your Order Details</strong></p>
 <p><Strong>Name : {{$emailData['name']}}</Strong></p>
 <p><Strong>Phone : {{$emailData['phone']}}</Strong></p>
 <p><Strong>Email : {{$emailData['email']}}</Strong></p>
 <p><Strong>No. of Guest : {{$emailData['no_of_guest']}}</Strong></p>
-<p><Strong>Reserved For : {{date('d M, Y', strtotime($emailData['date']))}} {{date('h:ia', strtotime($emailData['preferred_time']))}}</Strong></p>
+<p><Strong>Your prefered time : {{date('d M, Y', strtotime($emailData['date']))}} {{date('h:ia', strtotime($emailData['preferred_time']))}}</Strong></p>
 <table>
     <thead>
         <tr>
@@ -38,4 +42,9 @@
         @endif
     </tbody>
 </table>
-<p>Customer comments: {{$emailData['special_request']}}</p>
+<p><span style="font-weight: bold">Your Special Request:</span> {{$emailData['special_request']}}</p>
+<p style="font-style: italic;">Note: If you have any feedback you can reach us via email: {{$restaurantInfo->email}}, 
+@if ($restaurantInfo->contact_number) or phone: $restaurantInfo->contact_number @endif </p>
+<p style="">Have A Good Day</p> 
+<h3>Regards</h3>
+<p> <strong>{{$restaurantInfo->name}}</strong> <br> {{$restaurantInfo->address}}</p>

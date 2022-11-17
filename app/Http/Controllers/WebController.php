@@ -134,28 +134,34 @@ class WebController extends Controller
             $data->special_request = $request->special_request;
             $data->save();
 
+            $restaurantInfo = Restaurant::find($data->restaurant_id);
+            $data1 = [
+                'name' =>$data->first_name,
+                'phone' => $data->phone_number,
+                'email' => $data->email,
+                'date' => $data->date,
+                'preferred_time' => $data->preferred_time,
+                'no_of_guest' => $data->no_of_guest,
+                'special_request' => $data->special_request,
+                'orderDetails' => $orderDetails,
+                'quantity' => $quantity,
+                'restaurantInfo' => $restaurantInfo,
+            ]; // Empty array
+            
+            // customer
             if ($data->email) {
-                Mail::raw('Hi, welcome sir!. Thank you for chossen us. Have a good day!', function ($message) use ($data){
-                    $message->to($data->email)
-                    ->subject("Booking Complete");
+                $emailSubject = "order Confirmation";
+                $toMail = $data->email;
+                Mail::send('emails.customer_confirm', ["emailData"=>$data1], function($message) use ($toMail, $emailSubject)
+                {
+                    $message->to($toMail)->subject($emailSubject);
                 });
             }
-            $restaurantInfo = Restaurant::find($data->restaurant_id);
+            
+            // restaurant
             if ($restaurantInfo->email) {
                 $emailSubject = "You Have a new reservation";
                 $toMail = $restaurantInfo->email;
-
-                $data1 = [
-                    'name' =>$data->first_name,
-                    'phone' => $data->phone_number,
-                    'email' => $data->email,
-                    'date' => $data->date,
-                    'preferred_time' => $data->preferred_time,
-                    'no_of_guest' => $data->no_of_guest,
-                    'special_request' => $data->special_request,
-                    'orderDetails' => $orderDetails,
-                    'quantity' => $quantity,
-                ]; // Empty array
                 Mail::send('emails.restaurant_reservation', ["emailData"=>$data1], function($message) use ($toMail, $emailSubject)
                 {
                     $message->to($toMail)->subject($emailSubject);
