@@ -90,7 +90,7 @@
 
                                                 <div class="form-group col-md-4 ">
                                                     <label for="title">Title</label>
-                                                    <input type="text" id="title" class="form-control" placeholder="Title" name="title" value="">
+                                                    <input type="text" id="title" class="form-control" placeholder="Title" name="title" value="" required>
                                                 </div>
                                             </div>
                                         </div>

@@ -97,12 +97,20 @@
             </div>
             <div>
                 <h5>See below the parking details</h5>
+                @if (sizeof ($parkings) > 0)
+                    <ul>
+                        @foreach ($parkings as $parking)
+                        <li> <i class="fa fa-chevron-right"></i> {{$parking->title}}</li>
+                        @endforeach
+                    </ul>
+                @else
                 <ul>
                     <li> <i class="fa fa-chevron-right"></i> National Car Park ltd</li>
                     <li> <i class="fa fa-chevron-right"></i> Motherby Lane Car Park</li>
                     <li> <i class="fa fa-chevron-right"></i> Multi-story Car Park</li>
                     <li> <i class="fa fa-chevron-right"></i> Flaxengate Car Park</li>
                 </ul>
+                @endif
             </div>
         </div>
 
@@ -111,6 +119,16 @@
                 <h1 class="fw-semibold">Facilities</h1>
             </div>
             <div>
+                @if (sizeof ($facilities) > 0)
+                <ul>
+                    @foreach ($facilities as $facility)
+                        <li> <i class="fa fa-chevron-right"></i> {{$facility->title}}</li>
+                    @endforeach
+                </ul>
+                    @foreach ($facilities as $facility)
+                        
+                    @endforeach
+                @else
                 <ul>
                     <li> <i class="fa fa-chevron-right"></i> Disabled Access</li>
                     <li> <i class="fa fa-chevron-right"></i> Kids Play Area</li>
@@ -120,6 +138,7 @@
                     <li> <i class="fa fa-chevron-right"></i> Party Space</li>
                     <li> <i class="fa fa-chevron-right"></i> Cinema Screen</li>
                 </ul>
+                @endif
             </div>
         </div>
     </div>
