@@ -89,7 +89,7 @@ class WebController extends Controller
         ];
         Session::put('reservation', $reservation);
         $reservation = Session::get('reservation');
-        
+
         return json_encode($reservation);
     }
 
@@ -112,11 +112,11 @@ class WebController extends Controller
                 }
             }
         }
-        
+
         $menu = implode(',', $request->ordered_menu);
         $menuQty = implode(',', $quantity);
         $orderDetails = Menu::whereIn('id', $request->ordered_menu)->get();
-        
+
         DB::beginTransaction();
         try {
             $data = new Booking;
@@ -147,27 +147,27 @@ class WebController extends Controller
                 'quantity' => $quantity,
                 'restaurantInfo' => $restaurantInfo,
             ]; // Empty array
-            
+
             // customer
             if ($data->email) {
-                $emailSubject = "order Confirmation";
+                $emailSubject = "Order Confirmation";
                 $toMail = $data->email;
-                Mail::send('emails.customer_confirm', ["emailData"=>$data1], function($message) use ($toMail, $emailSubject)
+                Mail::send('emails.email', ["emailData"=>$data1], function($message) use ($toMail, $emailSubject)
                 {
                     $message->to($toMail)->subject($emailSubject);
                 });
             }
-            
+
             // restaurant
             if ($restaurantInfo->email) {
-                $emailSubject = "You Have a new reservation";
+                $emailSubject = "You have a new reservation";
                 $toMail = $restaurantInfo->email;
-                Mail::send('emails.restaurant_reservation', ["emailData"=>$data1], function($message) use ($toMail, $emailSubject)
+                Mail::send('emails.reservation_mail', ["emailData"=>$data1], function($message) use ($toMail, $emailSubject)
                 {
                     $message->to($toMail)->subject($emailSubject);
                 });
             }
-            
+
             DB::commit();
             return back()->with('success', 'Booking Successfull!. Check Your Mail!');
 
@@ -192,12 +192,12 @@ class WebController extends Controller
         $dinnerItems = DinnerMenu::where('restaurant_id', $data->id)->get();
 
         // return view('front.pdf_menu', compact('data', 'menusCategories', 'subCat', 'menus', 'lunchItems', 'dinnerItems'));
-        
+
         $pdf = PDF::loadView('front.pdf_menu', compact('data', 'menusCategories', 'subCat', 'menus', 'lunchItems', 'dinnerItems'));
         $fileName =  $data->name.'-menu.'. 'pdf' ;
         return $pdf->download($fileName);
     }
-    
+
     public function staticMenu(){
 
         $pdf = PDF::loadView('front.staticPDF');
