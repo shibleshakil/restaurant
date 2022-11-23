@@ -6,12 +6,12 @@
     </tr>
     <tr>
         <td>
-            <table align="center" style="background-color: #ffffff; border-radius:10px; text-align: center; width: fit-content">
+            <table align="center" style="background-color: #ffffff; border-radius:10px; width: fit-content">
                 <tr>
                     <td style=" padding: 32px">
                         <h3 style="font-weight: bold">A Reservation Has Been Confirmed At Your Restaurant</h3>
 
-                        <p style="margin-bottom:20px; text-align:center;"><strong>Order Details</strong></p>
+                        <p style="margin-bottom:20px;"><strong>Order Details</strong></p>
                         <p><Strong>Name : {{$emailData['name']}}</Strong></p>
                         <p><Strong>Phone : {{$emailData['phone']}}</Strong></p>
                         <p><Strong>Email : {{$emailData['email']}}</Strong></p>
