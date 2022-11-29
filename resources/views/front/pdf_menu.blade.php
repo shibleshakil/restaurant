@@ -127,6 +127,9 @@
         .menu-table td{
             vertical-align:middle !important;
         }
+        .item {
+            page-break-inside: avoid !important;
+        }
         @media print{@page {size: landscape}}
     </style>
 </head>
@@ -158,7 +161,7 @@
             @if (sizeof ($menusCategories) > 0)
                 @foreach ($menusCategories as $mcat)
                     @if (sizeof($menus->where('menu_sub_category_id', $mcat->id))> 0)
-                        <div class="col-md-12">
+                        <div class="col-md-12 item">
                             <p style="text-align:center; font-size:16px; font-weight: bold; margin:10px 0px;">{{$mcat->name}}</p>
                             <table style="width:100%" class="b-none menu-table">
                                 <tbody>
@@ -183,7 +186,7 @@
 
         <div class="row">
             @if (sizeof ($lunchItems) > 0)
-                <div class="col-md-12">
+                <div class="col-md-12 item">
                     <p style="text-align:center; font-size:16px; font-weight: bold; margin:10px 0px;">Lunch Special</p>
                     <table style="width:100%" class="b-none menu-table">
                         <tbody>
@@ -203,7 +206,7 @@
                 </div>
             @endif
             @if (sizeof ($dinnerItems) > 0)
-                <div class="col-md-12">
+                <div class="col-md-12 item">
                     <p style="text-align:center; font-size:16px; font-weight: bold; margin:10px 0px;">Dinner Special</p>
                     <table style="width:100%" class="b-none menu-table">
                         <tbody>
