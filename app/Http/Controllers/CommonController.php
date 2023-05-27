@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\MenuSubCategory;
 use App\Models\Restaurant;
 use App\Models\Menu;
+use Illuminate\Support\Facades\Http;
 
 class CommonController extends Controller
 {
@@ -16,7 +17,12 @@ class CommonController extends Controller
     }
 
     public function restaurantMenuList(Request $request){
-        $datas = Menu::where('restaurant_id', $request->id)->orWhereNull('restaurant_id')->get();
+
+//        $datas = Menu::where('restaurant_id', $request->id)->orWhereNull('restaurant_id')->get();
+        $response = Http::get('http://localhost:9000/api/menus');
+        $menu = json_decode($response->body());
+
+        $datas = $menu->menus;
 
         return json_encode($datas);
     }

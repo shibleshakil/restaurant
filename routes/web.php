@@ -28,6 +28,11 @@ Route::post('/confirmReservation', [WebController::class, 'confirmReservation'])
 Route::get('checkResttaurantInfo', 'App\Http\Controllers\CommonController@checkResttaurantInfo')->name('checkResttaurantInfo');
 Route::get('restaurantMenuList', 'App\Http\Controllers\CommonController@restaurantMenuList')->name('restaurantMenuList');
 
+//api endpoint for pos
+
+Route::post('/submit-order', 'WebController@submitOrder')->name('submitOrder');
+
+
 //backend
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
    Route::get('/dashboard', 'App\Http\Controllers\Back\DashboardController@index')->name('dashboard');

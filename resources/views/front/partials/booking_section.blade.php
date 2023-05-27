@@ -32,7 +32,7 @@
                     <label for="no_of_guest" class="form-label fw-semibold ">No. of Guest</label>
                     <select class="form-select w-100" id="no_of_guest" name="no_of_guest" @if($url=='restaurantDetail' ) required @else disabled @endif>
                         @if ($url=='restaurantDetail' && $data->no_of_guest)
-                            @for ($i = 0; $i < $data->no_of_guest; $i++) 
+                            @for ($i = 0; $i < $data->no_of_guest; $i++)
                                 <option value="{{$i+1}}">{{$i+1}}</option>
                             @endfor
                         @endif
@@ -58,8 +58,8 @@
                                 }
                             @endphp
 
-                            
-                            @for ($i = 0; $i < count($times); $i++) 
+
+                            @for ($i = 0; $i < count($times); $i++)
                                 <option value="{{$times[$i]}}">{{$times[$i]}}</option>
                             @endfor
                         @endif
@@ -79,16 +79,16 @@
                 <div class="col-md-6 py-md-3 mx-auto text-center">
                     <h6>Complete Your Reservation</h6>
                     <p class="booking-details">
-                        <strong id="bookedRestaurant"></strong><br> 
-                        on <strong id="bookedDate"></strong> 
-                        for <strong id="bookedGuest"></strong> 
+                        <strong id="bookedRestaurant"></strong><br>
+                        on <strong id="bookedDate"></strong>
+                        for <strong id="bookedGuest"></strong>
                         at <strong id="bookedTime"></strong>
-                    </p>                
+                    </p>
                     <p class="small">To book by phone, call {{$gcontact ? $gcontact->phone_number : ''}}</p>
                 </div>
             </div>
             <form action="{{ route('confirmReservation') }}" method="post" enctype="multipart/form-data">@csrf
-                
+
                 <div class="row w-100">
                     <div class="col-md-3  ms-md-auto">
                         <label for="first_name" class="form-label fw-semibold ">First Name</label>
@@ -112,7 +112,7 @@
                     </div>
 
                 </div>
-
+{{--
                 <div class="row w-100">
                     <div class="col-md-3"></div>
                     <div class="col-md-6 ms-md-auto">
@@ -121,13 +121,31 @@
                             @if($url=='restaurantDetail' )
                                 <option value="">Select Menu</option>
                                 @foreach ($menus as $type)
-                                    <option value="{{$type->id}}">{{$type->name}}   Price :   {{$type->price}}</option>
+                                    <option value="{{$type->id}}">{{$type->name}} (Price : {{$type->price}})</option>
                                 @endforeach
                             @endif
                         </select>
                     </div>
                     <div class="col-md-3"></div>
-                    
+
+                </div> --}}
+
+
+                <div class="row w-100">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6 ms-md-auto">
+                        <label for="menu" class="form-label fw-semibold ">Select Menu</label>
+                        <select class="form-select w-100" id="menu" name="menu">
+                            @if($url=='restaurantDetail')
+                                <option value="">Select Menu</option>
+                                @foreach ($menus as $type)
+                                    <option value="{{$type->id}}">{{$type->name}} (Price : {{$type->price}})</option>
+                                @endforeach
+                            @endif
+                        </select>
+                    </div>
+                    <div class="col-md-3"></div>
+
                 </div>
 
                 <div class="row w-100">
@@ -147,7 +165,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="ingredient_items">
-                                    
+
                                 </tbody>
                             </table>
                         </div>

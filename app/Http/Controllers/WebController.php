@@ -21,6 +21,7 @@ use App\Models\Menu;
 use App\Models\Booking;
 use App\Models\Facility;
 use App\Models\Parking;
+use Illuminate\Support\Facades\Http;
 use PDF;
 
 use Session;
@@ -34,10 +35,19 @@ class WebController extends Controller
         return view('front.home', compact('home', 'restaurants'));
     }
     public function menus(){
-        $menuCats = MenuCategory::where('is_active', 1)->get();
-        $menuSubCats = MenuSubCategory::where('is_active', 1)->get();
-        $menus = Menu::where('is_active', 1)->get();
+//        $menuCats = MenuCategory::where('is_active', 1)->get();
+//        $menuSubCats = MenuSubCategory::where('is_active', 1)->get();
+//        $menus = Menu::where('is_active', 1)->get();
+        $response = Http::get('http://localhost:9000/api/menus');
+        $data = json_decode($response->body());
+
+        $menuCats = $data->menuCats;
+        $menuSubCats = $data->menuSubCats;
+        $menus = $data->menus;
+
+//        $menus = $response->json();
         return view('front.menus', compact('menuCats', 'menuSubCats', 'menus'));
+//        return view('front.menus', ['menus' => $menus]);
     }
     public function restaurant(){
         $respage = Restaurantpage::find(1);
@@ -67,9 +77,12 @@ class WebController extends Controller
         if (!$data) {
             abort(404);
         }
-        $data->no_of_visit = $data->no_of_visit + 1;
-        $data->save();
-        $menus = Menu::where('restaurant_id', $data->id)->orWhereNull('restaurant_id')->get();
+        $response = Http::get('http://localhost:9000/api/menus');
+        $menudata = json_decode($response->body());
+
+        $menus = $menudata->menus;
+
+        // $menus = Menu::where('restaurant_id', $data->id)->orWhereNull('restaurant_id')->get();
         $bookingSetting = Bookingpage::findorFail(1);
         $restaurants = Restaurant::where('is_active', 1)->orderBy('name')->get();
         $lunchItems = LunchMenu::where('restaurant_id', $data->id)->inRandomOrder()->limit(2)->get();
@@ -133,6 +146,7 @@ class WebController extends Controller
             $data->preferred_time = $reservation[0]['preferred_time'];
             $data->special_request = $request->special_request;
             $data->save();
+//            dd($data);
 
             $restaurantInfo = Restaurant::find($data->restaurant_id);
             $data1 = [
@@ -158,6 +172,19 @@ class WebController extends Controller
                 });
             }
 
+            $res = $data->toArray();
+            $response = Http::post('http://localhost:9000/api/reserveOrder', $res);
+
+
+            // Check the response status
+            if ($response->successful()) {
+                // Order sent successfully
+//                return redirect()->back()->with('success', 'Order sent to POS project successfully.');
+            } else {
+                // Order sending failed
+                return redirect()->back()->with('error', 'Failed to send order to POS project.');
+            }
+
             // restaurant
             if ($restaurantInfo->email) {
                 $emailSubject = "You have a new reservation";
@@ -169,7 +196,7 @@ class WebController extends Controller
             }
 
             DB::commit();
-            return back()->with('success', 'Booking Successfull!. Check Your Mail!');
+            return back()->with('success', 'Booking Successful!. Check Your Mail!');
 
         } catch (\Throwable $th) {
             DB::rollback();
